@@ -44,7 +44,14 @@ SciViews::R("ts")
 
 ```{r}
 mobility <- read("data/mobility_wallonia.rds")
-
+mobility <- labelise(mobility,
+  label= list(
+  retail_and_recreation_percent_change_from_baseline = "commerces_loisirs", 
+  grocery_and_pharmacy_percent_change_from_baseline = "alimentation_pharmacies", 
+  parks_percent_change_from_baseline = "parcs" ,
+  transit_stations_percent_change_from_baseline = "parcs",
+  workplaces_percent_change_from_baseline = "travail",
+  residential_percent_change_from_baseline ="résidence"))
 ```
 
 
