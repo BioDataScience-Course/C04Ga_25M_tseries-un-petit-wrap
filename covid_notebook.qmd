@@ -54,6 +54,14 @@ mobility <- labelise(mobility,
   residential_percent_change_from_baseline ="résidence"))
 ```
 
+```{r}
+mobility_tsbl <- tsibble::as_tsibble(mobility)
+mobility_tsbl
+
+``` 
+```{r}
+
+```
 
 ## Conclusion
 
