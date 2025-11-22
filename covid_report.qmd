@@ -1,6 +1,6 @@
 ---
 title: "___"
-author: "___"
+author: "Azizi Moussa, Dezutter Joy, Fernandez Dany, Fontaine Maréva"
 format:
   pdf:
     documentclass: report
