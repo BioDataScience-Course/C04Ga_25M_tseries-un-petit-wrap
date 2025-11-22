@@ -57,10 +57,16 @@ mobility <- labelise(mobility,
 ```{r}
 mobility_tsbl <- tsibble::as_tsibble(mobility)
 mobility_tsbl
-
 ```
-```{r}
 
+```{r}
+mobility_1 <- summarise_(unlabelise(mobility),
+  "commerces_loisirs"   = retail_and_recreation_percent_change_from_baseline)
+tabularise(mobility_1)
+```
+
+```{r}
+skimr::skim(mobility)
 ```
 
 ## Conclusion
