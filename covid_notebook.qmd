@@ -1,6 +1,6 @@
 ---
 title: "___"
-author: "___"
+author: "Azizi Moussa, Dezutter Joy, Fernandez Dany, Fontaine Maréva"
 format:
   html:
     code-fold: true
@@ -46,7 +46,6 @@ SciViews::R("ts")
 mobility <- read("data/mobility_wallonia.rds")
 
 ```
-
 
 ## Conclusion
 
