@@ -130,14 +130,11 @@ mobility_grocery_pharma_spec <- spectrum(extract(mobility_grocery_pharma_loess, 
 ```
 
 ```{r}
-mobw <- mobility
-mobw$weekdays <- weekdays(as.POSIXct(mobw$date))
-mobw[mobw$weekdays == "Saturday" | mobw$weekdays == "Sunday" , 2:7] <- NA 
 
-mobw_ts <- ts(mobw$alimentation_pharmacies, start = c(2020, 46), frequency = 365)
+mobw_ts3 <- ts(mobw$alimentation_pharmacies, start = c(2020, 46), frequency = 365)
 plot(mobw_ts)
-mobw_ts2 <- aggregate(mobw_ts, 52, FUN = collapse::fmean, ts.eps = 1/52)
-plot(mobw_ts2)
+mobw_ts4 <- aggregate(mobw_ts3, 52, FUN = collapse::fmean, ts.eps = 1/52)
+plot(mobw_ts4)
 ```
 
 
@@ -156,14 +153,11 @@ plot(mobility_parks_loess, col=1:4)
 mobility_parks_spec <- spectrum(extract(mobility_parks_loess, components="trend"), spans=c(3,5))
 ```
 ```{r}
-mobw <- mobility
-mobw$weekdays <- weekdays(as.POSIXct(mobw$date))
-mobw[mobw$weekdays == "Saturday" | mobw$weekdays == "Sunday" , 2:7] <- NA 
 
-mobw_ts <- ts(mobw$parcs, start = c(2020, 46), frequency = 365)
-plot(mobw_ts)
-mobw_ts2 <- aggregate(mobw_ts, 52, FUN = collapse::fmean, ts.eps = 1/52)
-plot(mobw_ts2)
+mobw_ts5 <- ts(mobw$parcs, start = c(2020, 46), frequency = 365)
+plot(mobw_ts5)
+mobw_ts6 <- aggregate(mobw_ts5, 52, FUN = collapse::fmean, ts.eps = 1/52)
+plot(mobw_ts6)
 ```
 
 ```{r #joy} 
@@ -181,14 +175,11 @@ plot(mobility_transport_loess, col=1:4)
 mobility_transport_spec <- spectrum(extract(mobility_transport_loess, components="trend"), spans=c(3,5))
 ```
 ```{r}
-mobw <- mobility
-mobw$weekdays <- weekdays(as.POSIXct(mobw$date))
-mobw[mobw$weekdays == "Saturday" | mobw$weekdays == "Sunday" , 2:7] <- NA 
 
-mobw_ts <- ts(mobw$arrets_transports, start = c(2020, 46), frequency = 365)
-plot(mobw_ts)
-mobw_ts2 <- aggregate(mobw_ts, 52, FUN = collapse::fmean, ts.eps = 1/52)
-plot(mobw_ts2)
+mobw_ts7 <- ts(mobw$arrets_transports, start = c(2020, 46), frequency = 365)
+plot(mobw_ts7)
+mobw_ts8 <- aggregate(mobw_ts7, 52, FUN = collapse::fmean, ts.eps = 1/52)
+plot(mobw_ts8)
 ```
 ```{r Moussa travail}
 
