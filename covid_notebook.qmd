@@ -1,6 +1,6 @@
 ---
 title: "___"
-author: "___"
+author: "Azizi Moussa, Dezutter Joy, Fernandez Dany, Fontaine Maréva"
 format:
   html:
     code-fold: true
@@ -20,13 +20,15 @@ lang: fr
 
 <!--% Rédigez une courte introduction de 3 ou 5 phrases qui présente vos données. Ajoutez une phrase de but. Vous devez citer la bibliographie en utilisant le formatage Markdown ad hoc et en incluant votre référence au format bibtex dans le fichier references.bib. -->
 
-Bonjour je m'appelle Dany
+Google répertorie les données sur la mobilité des communautés pendant le COVID-19 (elles ne sont plus répertoriés depuis le 15/10/2022), celles-ci sont disponibles ici : https://www.google.com/covid19/mobility/
+Nous allons analyser ces données en nous concentrant sur les années 2020 et 2021, l'année 2020 ayant été fortement impactée au niveau économique notamment due aux règles au niveau des déplacements et l'année 2021 également mais ayant subit des mesures moins "strictes".
+Notre objectif est de déterminer l'impact du COVID-19 sur les déplacements des Wallons, pour ce faire nous allons analyser l'évolution de la fréquentation de lieux au cours du temps et également par catégorie (commerces, pharmacies, parcs, lieux de travail,...)
 
 ## Matériel et méthodes
 
 <!--% Indiquez ici d'où viennent les données et aussi quel logiciel (et version) vous utilisez pour les analyses. Inspirez-vous des projets déjà réalisés. -->
 
-...Matériel et méthodes...
+Les données sur les divers déplacements proviennent de Google
 
 ## Analyses
 
@@ -37,13 +39,107 @@ Bonjour je m'appelle Dany
 if (!"tools:tests" %in% search())
   source(here::here("tests/tools_tests.R"), attach(NULL, name = "tools:tests"))
 # Configuration de l'environnement
-SciViews::R("ts")
+SciViews::R("ts", lang="fr")
 ```
 
 <!--% Ajoutez le nombre de chunks que vous souhaitez. Répartissez-vous le travail correctement. Structurez la section en partie avec des titres explicites de niveau trois.-->
 
 ```{r}
+mobility <- read("data/mobility_wallonia.rds")
+mobility <- labelise(mobility,
+  label= list(
+  retail_and_recreation_percent_change_from_baseline = "commerces_loisirs", 
+  grocery_and_pharmacy_percent_change_from_baseline = "alimentation_pharmacies", 
+  parks_percent_change_from_baseline = "parcs" ,
+  transit_stations_percent_change_from_baseline = "arrets transports",
+  workplaces_percent_change_from_baseline = "travail",
+  residential_percent_change_from_baseline ="residence"))
+mobility<- rename(mobility,
+  commerces_loisirs = "retail_and_recreation_percent_change_from_baseline",
+  alimentation_pharmacies = "grocery_and_pharmacy_percent_change_from_baseline",
+  parcs = "parks_percent_change_from_baseline",
+  arrets_transports = "transit_stations_percent_change_from_baseline",
+  travail = "workplaces_percent_change_from_baseline",
+  residence = "residential_percent_change_from_baseline")
+```
 
+```{r}
+mobility_tsbl <- tsibble::as_tsibble(mobility)
+mobility_tsbl
+```
+
+
+```{r skim Maréva}
+skimr::skim(mobility)
+```
+
+```{r Maréva} 
+sdrop_na(mobility) -> mobility
+```
+
+```{r ts Maréva}
+mobility_com_ts <- ts(mobility$commerces_loisirs, start=c(2020,46), frequency=365)
+plot(mobility_com_ts)
+
+acf_com <- acf(mobility_com_ts)
+
+mobility_com_trend <- trend.test(mobility_com_ts, R=999)
+plot(mobility_com_trend)
+
+mobility_com_loess <- tsd(mobility_com_ts, method="loess", s.window=13, trend=TRUE)
+plot(mobility_com_loess, col=1:4)
+
+mobility_com_spec <- spectrum(extract(mobility_com_loess, components="trend"), spans=c(3,5))
+```
+
+```{r ts Maréva}
+
+```
+
+```{r #joy} 
+mobility_grocery_pharma_ts <- ts(mobility$grocery_and_pharmacy_percent_change_from_baseline, start=2020, frequency=365)
+plot(mobility_grocery_pharma_ts)
+
+acf_grocery_pharma <- acf(mobility_grocery_pharma_ts)
+
+mobility_grocery_pharma_trend <- trend.test(mobility_grocery_pharma_ts, R=999)
+plot(mobility_grocery_pharma_trend)
+
+mobility_grocery_pharma_loess <- tsd(mobility_grocery_pharma_ts, method="loess", s.window=13, trend=TRUE)
+plot(mobility_grocery_pharma_loess, col=1:4)
+
+mobility_grocery_pharma_spec <- spectrum(extract(mobility_grocery_pharma_loess, components="trend"), spans=c(3,5))
+```
+
+
+```{r #joy} 
+mobility_parks_ts <- ts(mobility$parks_percent_change_from_baseline, start=2020, frequency=365)
+plot(mobility_parks_ts)
+
+acf_parks <- acf(mobility_parks_ts)
+
+mobility_parks_trend <- trend.test(mobility_parks_ts, R=999)
+plot(mobility_parks_trend)
+
+mobility_parks_loess <- tsd(mobility_parks_ts, method="loess", s.window=13, trend=TRUE)
+plot(mobility_parks_loess, col=1:4)
+
+mobility_parks_spec <- spectrum(extract(mobility_parks_loess, components="trend"), spans=c(3,5))
+```
+
+```{r #joy} 
+mobility_parks_ts <- ts(mobility$parks_percent_change_from_baseline, start=2020, frequency=365)
+plot(mobility_parks_ts)
+
+acf_parks <- acf(mobility_parks_ts)
+
+mobility_parks_trend <- trend.test(mobility_parks_ts, R=999)
+plot(mobility_parks_trend)
+
+mobility_parks_loess <- tsd(mobility_parks_ts, method="loess", s.window=13, trend=TRUE)
+plot(mobility_parks_loess, col=1:4)
+
+mobility_parks_spec <- spectrum(extract(mobility_parks_loess, components="trend"), spans=c(3,5))
 ```
 
 ## Conclusion
