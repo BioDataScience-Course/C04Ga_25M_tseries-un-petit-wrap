@@ -96,6 +96,51 @@ mobility_com_spec <- spectrum(extract(mobility_com_loess, components="trend"), s
 
 ```
 
+```{r #joy} 
+mobility_grocery_pharma_ts <- ts(mobility$grocery_and_pharmacy_percent_change_from_baseline, start=2020, frequency=365)
+plot(mobility_grocery_pharma_ts)
+
+acf_grocery_pharma <- acf(mobility_grocery_pharma_ts)
+
+mobility_grocery_pharma_trend <- trend.test(mobility_grocery_pharma_ts, R=999)
+plot(mobility_grocery_pharma_trend)
+
+mobility_grocery_pharma_loess <- tsd(mobility_grocery_pharma_ts, method="loess", s.window=13, trend=TRUE)
+plot(mobility_grocery_pharma_loess, col=1:4)
+
+mobility_grocery_pharma_spec <- spectrum(extract(mobility_grocery_pharma_loess, components="trend"), spans=c(3,5))
+```
+
+
+```{r #joy} 
+mobility_parks_ts <- ts(mobility$parks_percent_change_from_baseline, start=2020, frequency=365)
+plot(mobility_parks_ts)
+
+acf_parks <- acf(mobility_parks_ts)
+
+mobility_parks_trend <- trend.test(mobility_parks_ts, R=999)
+plot(mobility_parks_trend)
+
+mobility_parks_loess <- tsd(mobility_parks_ts, method="loess", s.window=13, trend=TRUE)
+plot(mobility_parks_loess, col=1:4)
+
+mobility_parks_spec <- spectrum(extract(mobility_parks_loess, components="trend"), spans=c(3,5))
+```
+
+```{r #joy} 
+mobility_parks_ts <- ts(mobility$parks_percent_change_from_baseline, start=2020, frequency=365)
+plot(mobility_parks_ts)
+
+acf_parks <- acf(mobility_parks_ts)
+
+mobility_parks_trend <- trend.test(mobility_parks_ts, R=999)
+plot(mobility_parks_trend)
+
+mobility_parks_loess <- tsd(mobility_parks_ts, method="loess", s.window=13, trend=TRUE)
+plot(mobility_parks_loess, col=1:4)
+
+mobility_parks_spec <- spectrum(extract(mobility_parks_loess, components="trend"), spans=c(3,5))
+```
 ## Conclusion
 
 <!--% Lorsque toutes les analyses sont réalisées, terminez ce bloc-notes avec 3 à 6 phrases de conclusion en rapport avec ce que vous avez observé dans vos analyses. Quels sont les éléments les plus pertinents que vous retenez ? -->
