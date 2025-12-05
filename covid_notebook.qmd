@@ -76,7 +76,7 @@ sdrop_na(mobility) -> mobility
 ```
 
 ```{r ts Maréva}
-mobility_com_ts <- ts(mobility$retail_and_recreation_percent_change_from_baseline, start=2020, frequency=12)
+mobility_com_ts <- ts(mobility$retail_and_recreation_percent_change_from_baseline, start=2020, frequency=365)
 plot(mobility_com_ts)
 
 acf_com <- acf(mobility_com_ts)
@@ -91,9 +91,7 @@ mobility_com_spec <- spectrum(extract(mobility_com_loess, components="trend"), s
 ```
 
 ```{r ts Maréva}
-mobility_alim_ts <- ts(mobility$grocery_and_pharmacy_percent_change_from_baseline, start=2020, frequency=12)
-plot(mobility_alim_ts)
-acf_alim <- acf(mobility_alim_ts)
+
 ```
 
 ## Conclusion
