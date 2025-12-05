@@ -89,11 +89,29 @@ plot(mobility_com_trend)
 mobility_com_loess <- tsd(mobility_com_ts, method="loess", s.window=13, trend=TRUE)
 plot(mobility_com_loess, col=1:4)
 
-mobility_com_spec <- spectrum(extract(mobility_com_loess, components="trend"), spans=c(3,5))
+mobility_com_spec <- spectrum(extract(mobility_com_loess, components="trend"), spans=c(5,7))
 ```
 
 ```{r ts Maréva}
+# Copie de la série initiale sous une autre nom
+mobw <- mobility
+# Calcul des jours de la semaine
+mobw$weekdays <- weekdays(as.POSIXct(mobw$date))
+# Les données du week-end sont remplacées par des valeurs manquantes
+mobw[mobw$weekdays == "Saturday" | mobw$weekdays == "Sunday" , 2:7] <- NA 
+# La série temporelle est créée (début le 15 février 2020 = 46e jour de l'année 2020)
+mobw_ts <- ts(mobw$commerces_loisirs, start = c(2020, 46), frequency = 365)
+plot(mobw_ts)
+# Aggrégation par moyenne des valeurs par semaine
+mobw_ts2 <- aggregate(mobw_ts, 52, FUN = collapse::fmean, ts.eps = 1/52)
+plot(mobw_ts2)
 
+acf_com_wd <- acf(mobw_ts2)
+mobility_com_trend_wd <- trend.test(mobw_ts2, R=999)
+plot(mobility_com_trend_wd)
+mobility_com_loess_wd <- tsd(mobw_ts2, method="loess", s.window=13, trend=TRUE)
+plot(mobility_com_loess_wd, col=1:4)
+mobility_com_spec_wd <- spectrum(extract(mobility_com_loess_wd, components="trend"), spans=c(5,7))
 ```
 
 ```{r #joy} 
