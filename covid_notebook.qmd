@@ -51,9 +51,16 @@ mobility <- labelise(mobility,
   retail_and_recreation_percent_change_from_baseline = "commerces_loisirs", 
   grocery_and_pharmacy_percent_change_from_baseline = "alimentation_pharmacies", 
   parks_percent_change_from_baseline = "parcs" ,
-  transit_stations_percent_change_from_baseline = "parcs",
+  transit_stations_percent_change_from_baseline = "arrets transports",
   workplaces_percent_change_from_baseline = "travail",
   residential_percent_change_from_baseline ="residence"))
+mobility<- rename(mobility,
+  commerces_loisirs = "retail_and_recreation_percent_change_from_baseline",
+  alimentation_pharmacies = "grocery_and_pharmacy_percent_change_from_baseline",
+  parcs = "parks_percent_change_from_baseline",
+  arrets_transports = "transit_stations_percent_change_from_baseline",
+  travail = "workplaces_percent_change_from_baseline",
+  residence = "residential_percent_change_from_baseline")
 ```
 
 ```{r}
@@ -71,7 +78,7 @@ sdrop_na(mobility) -> mobility
 ```
 
 ```{r ts Maréva}
-mobility_com_ts <- ts(mobility$retail_and_recreation_percent_change_from_baseline, start=2020, frequency=365)
+mobility_com_ts <- ts(mobility$commerces_loisirs, start=1, end=972 ,frequency=365)
 plot(mobility_com_ts)
 
 acf_com <- acf(mobility_com_ts)
