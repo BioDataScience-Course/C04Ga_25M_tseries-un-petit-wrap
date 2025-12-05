@@ -78,7 +78,7 @@ sdrop_na(mobility) -> mobility
 ```
 
 ```{r ts Maréva}
-mobility_com_ts <- ts(mobility$commerces_loisirs, start=1, end=972 ,frequency=365)
+mobility_com_ts <- ts(mobility$commerces_loisirs, start=c(2020,46), frequency=365)
 plot(mobility_com_ts)
 
 acf_com <- acf(mobility_com_ts)
