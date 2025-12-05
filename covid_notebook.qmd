@@ -97,7 +97,7 @@ mobility_com_spec <- spectrum(extract(mobility_com_loess, components="trend"), s
 ```
 
 ```{r #joy} 
-mobility_grocery_pharma_ts <- ts(mobility$grocery_and_pharmacy_percent_change_from_baseline, start=2020, frequency=365)
+mobility_grocery_pharma_ts <- ts(mobility$alimentation_pharmacies, start=2020, frequency=365)
 plot(mobility_grocery_pharma_ts)
 
 acf_grocery_pharma <- acf(mobility_grocery_pharma_ts)
@@ -113,7 +113,7 @@ mobility_grocery_pharma_spec <- spectrum(extract(mobility_grocery_pharma_loess, 
 
 
 ```{r #joy} 
-mobility_parks_ts <- ts(mobility$parks_percent_change_from_baseline, start=2020, frequency=365)
+mobility_parks_ts <- ts(mobility$parcs, start=2020, frequency=365)
 plot(mobility_parks_ts)
 
 acf_parks <- acf(mobility_parks_ts)
@@ -128,18 +128,18 @@ mobility_parks_spec <- spectrum(extract(mobility_parks_loess, components="trend"
 ```
 
 ```{r #joy} 
-mobility_parks_ts <- ts(mobility$parks_percent_change_from_baseline, start=2020, frequency=365)
-plot(mobility_parks_ts)
+mobility_transport_ts <- ts(mobility$arrets_transports, start=2020, frequency=365)
+plot(mobility_transport_ts)
 
-acf_parks <- acf(mobility_parks_ts)
+acf_transport <- acf(mobility_transport_ts)
 
-mobility_parks_trend <- trend.test(mobility_parks_ts, R=999)
-plot(mobility_parks_trend)
+mobility_transport_trend <- trend.test(mobility_transport_ts, R=999)
+plot(mobility_transport_trend)
 
-mobility_parks_loess <- tsd(mobility_parks_ts, method="loess", s.window=13, trend=TRUE)
-plot(mobility_parks_loess, col=1:4)
+mobility_transport_loess <- tsd(mobility_transport_ts, method="loess", s.window=13, trend=TRUE)
+plot(mobility_transport_loess, col=1:4)
 
-mobility_parks_spec <- spectrum(extract(mobility_parks_loess, components="trend"), spans=c(3,5))
+mobility_transport_spec <- spectrum(extract(mobility_transport_loess, components="trend"), spans=c(3,5))
 ```
 ## Conclusion
 
