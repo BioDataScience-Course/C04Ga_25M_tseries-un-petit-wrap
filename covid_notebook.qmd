@@ -123,8 +123,8 @@ acf_grocery_pharma <- acf(mobility_grocery_pharma_ts)
 mobility_grocery_pharma_trend <- trend.test(mobility_grocery_pharma_ts, R=999)
 plot(mobility_grocery_pharma_trend)
 
-mobility_grocery_pharma_loess <- tsd(mobility_grocery_pharma_ts, method="loess", s.window=13, trend=TRUE)
-plot(mobility_grocery_pharma_loess, col=1:4)
+mobility_grocery_pharma_median <- tsd(mobility_grocery_pharma_ts, method="median", order=180 ,times=1)
+plot(mobility_grocery_pharma_median, col=1:4)
 
 mobility_grocery_pharma_spec <- spectrum(extract(mobility_grocery_pharma_loess, components="trend"), spans=c(3,5))
 ```
@@ -147,8 +147,8 @@ acf_parks <- acf(mobility_parks_ts)
 mobility_parks_trend <- trend.test(mobility_parks_ts, R=999)
 plot(mobility_parks_trend)
 
-mobility_parks_loess <- tsd(mobility_parks_ts, method="loess", s.window=13, trend=TRUE)
-plot(mobility_parks_loess, col=1:4)
+mobility_parks_median <- tsd(mobility_parks_ts, method="median", order=180 ,times=1)
+plot(mobility_parks_median, col=1:4)
 
 mobility_parks_spec <- spectrum(extract(mobility_parks_loess, components="trend"), spans=c(3,5))
 ```
@@ -169,8 +169,8 @@ acf_transport <- acf(mobility_transport_ts)
 mobility_transport_trend <- trend.test(mobility_transport_ts, R=999)
 plot(mobility_transport_trend)
 
-mobility_transport_loess <- tsd(mobility_transport_ts, method="loess", s.window=13, trend=TRUE)
-plot(mobility_transport_loess, col=1:4)
+mobility_transport_median <- tsd(mobility_transport_ts, method="median", order=180 ,times=1)
+plot(mobility_transport_median, col=1:4)
 
 mobility_transport_spec <- spectrum(extract(mobility_transport_loess, components="trend"), spans=c(3,5))
 ```
