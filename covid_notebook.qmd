@@ -92,6 +92,10 @@ plot(mobility_com_median, col=1:4)
 plot(mobility_com_median, stack=FALSE, resid=FALSE, col=1:2)
 ```
 
+Lorsque l'on observe le graphique de l'analyse par "médianes mobiles", on apercoit une diminution de la fréquentation du +/-50ème jour jusqu'au 200ème jour, il y a ensuite une légère augmentation du +/-220ème jour au 420ème et puis un forte augmentation de la fréquentation à lieu aux alentours jusqu'au 500ème jour qui ensuite se stabilise jusqu'à la fin de la série.
+Il nous faut noter que le 33ème jour après le 15 février 2020(début de la série) correspond au début premier confinement (18 mars 2020), son déconfinement progressif correspond au 80ème jour (4 mai 2020) et a duré +/- jusqu'au 138ème jour (1 juillet 2020). Le 261ème jour correspond au second confinement (2 novembre 2020) et son déconfinement a eu lieu au 387ème jour (8 mars 2021).
+A noter que les confinements et déconfinements ont été progressifs pour certains aspects, par exemple, les commerces non-essentiels ont d'abord étaient concernés alors que certains loisirs comme les cinémas ou piscines ont été impactés plus tard. 
+
 ```{r ts commerce,loisir sans wk Maréva}
 # Copie de la série initiale sous une autre nom
 mobw <- mobility
