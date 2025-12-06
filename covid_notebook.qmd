@@ -77,7 +77,7 @@ skimr::skim(mobility)
 sdrop_na(mobility) -> mobility
 ```
 
-```{r ts Maréva}
+```{r ts commerce,loisir Maréva}
 mobility_com_ts <- ts(mobility$commerces_loisirs, start = c(2020,46), frequency=365)
 plot(mobility_com_ts)
 
@@ -86,13 +86,13 @@ acf_com <- acf(mobility_com_ts)
 mobility_com_trend <- trend.test(mobility_com_ts, R=999)
 plot(mobility_com_trend)
 
-mobility_com_loess <- tsd(mobility_com_ts, method="loess", s.window=366, trend=TRUE)
-plot(mobility_com_loess, col=1:4)
+mobility_com_median <- tsd(mobility_com_ts, method="median", order=180 ,times=1)
+plot(mobility_com_median, col=1:4)
 
-mobility_com_spec <- spectrum(extract(mobility_com_loess, components="trend"), spans=c(5,7))
+plot(mobility_com_median, stack=FALSE, resid=FALSE, col=1:2)
 ```
 
-```{r ts Maréva}
+```{r ts commerce,loisir sans wk Maréva}
 # Copie de la série initiale sous une autre nom
 mobw <- mobility
 # Calcul des jours de la semaine
@@ -109,9 +109,9 @@ plot(mobw_ts2)
 acf_com_wd <- acf(mobw_ts2)
 mobility_com_trend_wd <- trend.test(mobw_ts2, R=999)
 plot(mobility_com_trend_wd)
-mobility_com_loess_wd <- tsd(mobw_ts2, method="loess", s.window=366, trend=TRUE)
-plot(mobility_com_loess_wd, col=1:4)
-mobility_com_spec_wd <- spectrum(extract(mobility_com_loess_wd, components="trend"), spans=c(5,7))
+mobility_com_median_wd <- tsd(mobw_ts2, method="median", order=180 ,times=1)
+plot(mobility_com_median_wd, col=1:4)
+plot(mobility_com_median, stack=FALSE, resid=FALSE, col=1:2)
 ```
 
 ```{r #joy} 
@@ -181,6 +181,7 @@ plot(mobw_ts7)
 mobw_ts8 <- aggregate(mobw_ts7, 52, FUN = collapse::fmean, ts.eps = 1/52)
 plot(mobw_ts8)
 ```
+
 ```{r Moussa travail}
 
 ```
