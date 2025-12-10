@@ -206,7 +206,14 @@ plot(mobility_residence_median, col = 1:3)
 plot(mobility_residence_median, stack = FALSE, resid = FALSE, col = 1:2)
 ```
 ```{r Dany Résidence sans wk}
+# Les données du week-end sont remplacées par des valeurs manquantes
+mobw[mobw$weekdays == "Saturday" | mobw$weekdays == "Sunday" , "residence"] <- NA
 
+mobw_residence_ts <- ts(mobw$residence, start = c(2020, 46), frequency = 365)
+plot(mobw_residence_ts)
+
+mobw_residence_ts2 <- aggregate(mobw_residence_ts, 52, FUN = collapse::fmean, ts.eps = 1/52)
+plot(mobw_residence_ts2)
 ```
 
 ## Conclusion
