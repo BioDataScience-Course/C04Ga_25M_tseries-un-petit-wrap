@@ -192,6 +192,20 @@ plot(mobw_ts8)
 
 
 ```{r Dany résidence}
+mobility_residence_ts <- ts(mobility$residence, start = c(2020, 46), frequency = 365)
+plot(mobility_residence_ts)
+
+acf_residence <- acf(mobility_residence_ts)
+
+mobility_residence_trend <- trend.test(mobility_residence_ts, R = 999)
+plot(mobility_residence_trend)
+
+mobility_residence_median <- tsd(mobility_residence_ts, method = "median", order = 180, times = 1)
+plot(mobility_residence_median, col = 1:3)
+
+plot(mobility_residence_median, stack = FALSE, resid = FALSE, col = 1:2)
+```
+```{r Dany Résidence sans wk}
 
 ```
 
