@@ -205,6 +205,15 @@ plot(mobility_residence_median, col = 1:3)
 
 plot(mobility_residence_median, stack = FALSE, resid = FALSE, col = 1:2)
 ```
+
+Lorsque l’on observe le graphique de l’analyse par « médianes-mobiles » de la série Résidence, on aperçoit tout d’abord une forte augmentation du temps passé à domicile dès le début de la série, c’est-à-dire autour du 30ème jour. Cette hausse correspond au début du premier confinement (18 mars 2020), période durant laquelle les déplacements non essentiels étaient interdits et où la population restait majoritairement chez elle. Cette augmentation se maintient jusque vers le 100ème jour.
+
+À partir d’environ du 100ème au 200ème jour, on observe une diminution progressive du temps passé à la maison. Cela correspond au déconfinement progressif initié le 4 mai 2020, qui s’est poursuivi jusqu’au coeur de l’été (vers le 130ème–150ème jour). Durant cette période, la mobilité résidentielle diminue graduellement mais reste néanmoins supérieure au niveau de référence, en raison du maintien de certaines restrictions ainsi que du télétravail encore largement pratiqué.
+
+Peu après le 200ème-210ème jour, on constate une nouvelle augmentation du temps passé à domicile. Cette hausse est progressive et se poursuit jusqu’à environ le 250ème, voire le 300ème jour. Cette tendance ascendante correspond à la période précédant le second confinement, puis au second confinement lui-même (à partir du 2 novembre 2020), durant lequel les déplacements furent à nouveau restreints.
+
+Il faut également noter que tout au long de la série, les variations de courte durée correspondent aux fluctuations quotidiennes et hebdomadaires habituelles, fortement influencées par les différentes phases sanitaires. La tendance générale met clairement en évidence les impacts successifs des périodes de confinement et de déconfinement sur la mobilité résidentielle en Wallonie.
+
 ```{r Dany Résidence sans wk}
 # Les données du week-end sont remplacées par des valeurs manquantes
 mobw[mobw$weekdays == "Saturday" | mobw$weekdays == "Sunday" , "residence"] <- NA
@@ -215,7 +224,6 @@ plot(mobw_residence_ts)
 mobw_residence_ts2 <- aggregate(mobw_residence_ts, 52, FUN = collapse::fmean, ts.eps = 1/52)
 plot(mobw_residence_ts2)
 ```
-
 ## Conclusion
 
 <!--% Lorsque toutes les analyses sont réalisées, terminez ce bloc-notes avec 3 à 6 phrases de conclusion en rapport avec ce que vous avez observé dans vos analyses. Quels sont les éléments les plus pertinents que vous retenez ? -->
