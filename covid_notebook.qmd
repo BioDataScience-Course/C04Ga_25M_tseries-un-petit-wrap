@@ -224,6 +224,9 @@ plot(mobw_residence_ts)
 mobw_residence_ts2 <- aggregate(mobw_residence_ts, 52, FUN = collapse::fmean, ts.eps = 1/52)
 plot(mobw_residence_ts2)
 ```
+
+Après avoir retiré les week-ends, la série Résidence devient plus lissée et présente moins de fluctuations brusques, ce qui permet de mieux observer la tendance générale, même si la forme globale reste la même que dans la série complète. Les effets des confinements sont toujours visibles, mais les variations d’un jour à l’autre sont moins fortes. Au final, ça ne change pas fondamentalement l’interprétation.
+
 ## Conclusion
 
 <!--% Lorsque toutes les analyses sont réalisées, terminez ce bloc-notes avec 3 à 6 phrases de conclusion en rapport avec ce que vous avez observé dans vos analyses. Quels sont les éléments les plus pertinents que vous retenez ? -->
