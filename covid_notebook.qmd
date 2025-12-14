@@ -20,15 +20,17 @@ lang: fr
 
 <!--% Rédigez une courte introduction de 3 ou 5 phrases qui présente vos données. Ajoutez une phrase de but. Vous devez citer la bibliographie en utilisant le formatage Markdown ad hoc et en incluant votre référence au format bibtex dans le fichier references.bib. -->
 
-Google répertorie les données sur la mobilité des communautés pendant le COVID-19 (elles ne sont plus répertoriés depuis le 15/10/2022), celles-ci sont disponibles ici : https://www.google.com/covid19/mobility/
-Nous allons analyser ces données en nous concentrant sur les années 2020 et 2021, l'année 2020 ayant été fortement impactée au niveau économique notamment due aux règles au niveau des déplacements et l'année 2021 également mais ayant subit des mesures moins "strictes".
+Google répertorie les données sur la mobilité des communautés en Belgique (Wallonie, Flandre, Bruxelles) pendant le COVID-19 (elles ne sont plus répertoriés depuis le 15/10/2022), celles-ci sont disponibles ici : https://www.google.com/covid19/mobility/.
+Nous allons analyser ces données en nous concentrant sur les années 2020 et 2021, l'année 2020 ayant été fortement impactée au niveau économique notamment due aux règles au niveau des déplacements et l'année 2021 également mais ayant subit des mesures moins "strictes". 
 Notre objectif est de déterminer l'impact du COVID-19 sur les déplacements des Wallons, pour ce faire nous allons analyser l'évolution de la fréquentation de lieux au cours du temps et également par catégorie (commerces, pharmacies, parcs, lieux de travail,...)
 
 ## Matériel et méthodes
 
 <!--% Indiquez ici d'où viennent les données et aussi quel logiciel (et version) vous utilisez pour les analyses. Inspirez-vous des projets déjà réalisés. -->
 
-Les données sur les divers déplacements proviennent de Google
+Les données sur la mobilité des communautés pendant le COVID-19 en Belgique proviennent de Google : https://www.google.com/covid19/mobility/.
+
+L'analyse est réalisée avec la [SciViews Box 2025](https://www.sciviews.org/software/svbox/) dans [Saturn Cloud](https://saturncloud.io) (Linux), utilisant le [logiciel R](https://www.r-project.org) (`r R.version.string`). Le package {pastecs} version `r packageVersion("pastecs")` est utilisé pour étudier la série temporelle.
 
 ## Analyses
 
@@ -68,12 +70,11 @@ mobility_tsbl <- tsibble::as_tsibble(mobility)
 mobility_tsbl
 ```
 
-
 ```{r skim Maréva}
 skimr::skim(mobility)
 ```
 
-```{r Maréva} 
+```{r Maréva}
 sdrop_na(mobility) -> mobility
 ```
 
@@ -92,9 +93,7 @@ plot(mobility_com_median, col=1:4)
 plot(mobility_com_median, stack=FALSE, resid=FALSE, col=1:2)
 ```
 
-Lorsque l'on observe le graphique de l'analyse par "médianes mobiles", on apercoit une diminution de la fréquentation du +/-50ème jour jusqu'au 200ème jour, il y a ensuite une légère augmentation du +/-220ème jour au 420ème et puis un forte augmentation de la fréquentation à lieu aux alentours jusqu'au 500ème jour qui ensuite se stabilise jusqu'à la fin de la série.
-Il nous faut noter que le 33ème jour après le 15 février 2020(début de la série) correspond au début premier confinement (18 mars 2020), son déconfinement progressif correspond au 80ème jour (4 mai 2020) et a duré +/- jusqu'au 138ème jour (1 juillet 2020). Le 261ème jour correspond au second confinement (2 novembre 2020) et son déconfinement a eu lieu au 387ème jour (8 mars 2021).
-A noter que les confinements et déconfinements ont été progressifs pour certains aspects, par exemple, les commerces non-essentiels ont d'abord étaient concernés alors que certains loisirs comme les cinémas ou piscines ont été impactés plus tard. 
+Lorsque l'on observe le graphique de l'analyse par "médianes mobiles", on apercoit une diminution de la fréquentation du +/-50ème jour jusqu'au 200ème jour, il y a ensuite une légère augmentation du +/-220ème jour au 420ème et puis un forte augmentation de la fréquentation à lieu aux alentours jusqu'au 500ème jour qui ensuite se stabilise jusqu'à la fin de la série. Il nous faut noter que le 33ème jour après le 15 février 2020(début de la série) correspond au début premier confinement (18 mars 2020), son déconfinement progressif correspond au 80ème jour (4 mai 2020) et a duré +/- jusqu'au 138ème jour (1 juillet 2020). Le 261ème jour correspond au second confinement (2 novembre 2020) et son déconfinement a eu lieu au 387ème jour (8 mars 2021). A noter que les confinements et déconfinements ont été progressifs pour certains aspects, par exemple, les commerces non-essentiels ont d'abord étaient concernés alors que certains loisirs comme les cinémas ou piscines ont été impactés plus tard.
 
 ```{r ts commerce,loisir sans wk Maréva}
 # Copie de la série initiale sous une autre nom
@@ -118,7 +117,7 @@ plot(mobility_com_median_wd, col=1:4)
 plot(mobility_com_median, stack=FALSE, resid=FALSE, col=1:2)
 ```
 
-```{r #joy} 
+```{r #joy}
 mobility_grocery_pharma_ts <- ts(mobility$alimentation_pharmacies, start=2020, frequency=365)
 plot(mobility_grocery_pharma_ts)
 
@@ -141,8 +140,7 @@ mobw_ts4 <- aggregate(mobw_ts3, 52, FUN = collapse::fmean, ts.eps = 1/52)
 plot(mobw_ts4)
 ```
 
-
-```{r #joy} 
+```{r #joy}
 mobility_parks_ts <- ts(mobility$parcs, start=2020, frequency=365)
 plot(mobility_parks_ts)
 
@@ -156,6 +154,7 @@ plot(mobility_parks_median, col=1:4)
 
 mobility_parks_spec <- spectrum(extract(mobility_parks_loess, components="trend"), spans=c(3,5))
 ```
+
 ```{r}
 
 mobw_ts5 <- ts(mobw$parcs, start = c(2020, 46), frequency = 365)
@@ -164,7 +163,7 @@ mobw_ts6 <- aggregate(mobw_ts5, 52, FUN = collapse::fmean, ts.eps = 1/52)
 plot(mobw_ts6)
 ```
 
-```{r #joy} 
+```{r #joy}
 mobility_transport_ts <- ts(mobility$arrets_transports, start=2020, frequency=365)
 plot(mobility_transport_ts)
 
@@ -178,6 +177,7 @@ plot(mobility_transport_median, col=1:4)
 
 mobility_transport_spec <- spectrum(extract(mobility_transport_loess, components="trend"), spans=c(3,5))
 ```
+
 ```{r}
 
 mobw_ts7 <- ts(mobw$arrets_transports, start = c(2020, 46), frequency = 365)
@@ -189,7 +189,6 @@ plot(mobw_ts8)
 ```{r Moussa travail}
 
 ```
-
 
 ```{r Dany résidence}
 mobility_residence_ts <- ts(mobility$residence, start = c(2020, 46), frequency = 365)
