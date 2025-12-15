@@ -218,8 +218,19 @@ mobility_travail_median <- tsd(mobility_travail_ts, method = "median", order = 1
 plot(mobility_travail_median, col = 1:3)
 
 plot(mobility_travail_median, stack = FALSE, resid = FALSE, col = 1:2)
-
 ```
+
+```{r Moussa travail sans wk}
+# Les données du week-end sont remplacées par des valeurs manquantes
+mobw[mobw$weekdays == "Saturday" | mobw$weekdays == "Sunday" , "travail"] <- NA
+
+mobw_travail_ts <- ts(mobw$travail, start = c(2020, 46), frequency = 365)
+plot(mobw_travail_ts)
+
+mobw_travail_ts2 <- aggregate(mobw_travail_ts, 52, FUN = collapse::fmean, ts.eps = 1/52)
+plot(mobw_travail_ts2)
+```
+
 
 ```{r Dany résidence}
 mobility_residence_ts <- ts(mobility$residence, start = c(2020, 46), frequency = 365)
