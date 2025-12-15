@@ -148,10 +148,10 @@ plot(mobility_grocery_pharma_trend)
 mobility_grocery_pharma_median <- tsd(mobility_grocery_pharma_ts, method="median", order=180 ,times=1)
 plot(mobility_grocery_pharma_median, col=1:4)
 
-mobility_grocery_pharma_spec <- spectrum(extract(mobility_grocery_pharma_loess, components="trend"), spans=c(3,5))
 ```
 
 ```{r}
+mobw[mobw$weekdays == "Saturday" | mobw$weekdays == "Sunday" , "alimentation_pharmacies"] <- NA
 
 mobw_ts3 <- ts(mobw$alimentation_pharmacies, start = c(2020, 46), frequency = 365)
 plot(mobw_ts)
@@ -171,10 +171,10 @@ plot(mobility_parks_trend)
 mobility_parks_median <- tsd(mobility_parks_ts, method="median", order=180 ,times=1)
 plot(mobility_parks_median, col=1:4)
 
-mobility_parks_spec <- spectrum(extract(mobility_parks_loess, components="trend"), spans=c(3,5))
 ```
 
 ```{r}
+mobw[mobw$weekdays == "Saturday" | mobw$weekdays == "Sunday" , "parcs"] <- NA 
 
 mobw_ts5 <- ts(mobw$parcs, start = c(2020, 46), frequency = 365)
 plot(mobw_ts5)
@@ -194,10 +194,10 @@ plot(mobility_transport_trend)
 mobility_transport_median <- tsd(mobility_transport_ts, method="median", order=180 ,times=1)
 plot(mobility_transport_median, col=1:4)
 
-mobility_transport_spec <- spectrum(extract(mobility_transport_loess, components="trend"), spans=c(3,5))
 ```
 
 ```{r}
+mobw[mobw$weekdays == "Saturday" | mobw$weekdays == "Sunday" , "arrets_transports"] <- NA
 
 mobw_ts7 <- ts(mobw$arrets_transports, start = c(2020, 46), frequency = 365)
 plot(mobw_ts7)
