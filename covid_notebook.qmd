@@ -44,7 +44,7 @@ SciViews::R("ts", lang="fr")
 
 <!--% Ajoutez le nombre de chunks que vous souhaitez. Répartissez-vous le travail correctement. Structurez la section en partie avec des titres explicites de niveau trois.-->
 
-```{rmodif donnees}
+```{r modif donnees}
 ### Modifications des données
 
 mobility <- read("data/mobility_wallonia.rds")
