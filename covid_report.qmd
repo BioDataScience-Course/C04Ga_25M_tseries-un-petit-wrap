@@ -16,13 +16,13 @@ lang: fr
 ## Introduction
 
 <!--% Rédigez l'introduction de ce rapport.-->
-Google répertorie les données sur la mobilité des communautés pendant le COVID-19 (elles ne sont plus répertoriés depuis le 15/10/2022), celles-ci sont disponibles ici : https://www.google.com/covid19/mobility/
-Nous allons analyser ces données en nous concentrant sur les années 2020 et 2021, l'année 2020 ayant été fortement impactée au niveau économique notamment due aux règles au niveau des déplacements et l'année 2021 également mais ayant subit des mesures moins "strictes".
 
+Google répertorie les données sur la mobilité des communautés pendant le COVID-19 (elles ne sont plus répertoriés depuis le 15/10/2022), celles-ci sont disponibles ici : https://www.google.com/covid19/mobility/ Nous allons analyser ces données en nous concentrant sur les années 2020 et 2021, l'année 2020 ayant été fortement impactée au niveau économique notamment due aux règles au niveau des déplacements et l'année 2021 également mais ayant subit des mesures moins "strictes".
 
 ## But
 
 <!--% Rédigez le but de ce rapport.-->
+
 Notre objectif est de déterminer l'impact du COVID-19 sur les déplacements des Wallons, pour ce faire nous allons analyser l'évolution de la fréquentation de lieux au cours du temps et également par catégorie (commerces, pharmacies, parcs, lieux de travail,...)
 
 ## Matériel et méthodes
