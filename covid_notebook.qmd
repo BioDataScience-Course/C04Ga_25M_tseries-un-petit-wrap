@@ -153,7 +153,7 @@ mobility_grocery_pharma_median <- tsd(mobility_grocery_pharma_ts, method="median
 plot(mobility_grocery_pharma_median, col=1:4)
 
 ```
-
+Concernant les trajets vers les commerces alimentaires et les pharmacies, on observe une tendance globale en augmentatoin, particulièrement marquée aux alentours du 400ème jour, soit vers le second déconfinement.  A partir du 500 èmè jour l'augmentation continue mais plus faiblement.
 ```{r}
 mobw[mobw$weekdays == "Saturday" | mobw$weekdays == "Sunday" , "alimentation_pharmacies"] <- NA
 
@@ -176,7 +176,8 @@ mobility_parks_median <- tsd(mobility_parks_ts, method="median", order=180 ,time
 plot(mobility_parks_median, col=1:4)
 
 ```
-
+Concernant les parcs,on observe une augmentation au début de la série, vers le 33 ème jour correspondant au premier confinement, il y a ensuite une diminution jusqu'au 250ème jour (le second confinement commence au 261ème), suivie d'une réaugmentation jusqu'au 300ème jour, ensuite une stabilisation et une dernière augmentation après le 800 ème jour.
+Les deux premières augmentation correspondent donc aux deux confinements.
 ```{r}
 mobw[mobw$weekdays == "Saturday" | mobw$weekdays == "Sunday" , "parcs"] <- NA 
 
@@ -199,7 +200,7 @@ mobility_transport_median <- tsd(mobility_transport_ts, method="median", order=1
 plot(mobility_transport_median, col=1:4)
 
 ```
-
+Les déplacements vers les arrêts de transports en commun présentent une légère augmentation au début de la série, avant de diminuer. Peu après le 200 ème jour, la tendance globale est à l'augmentation jusqu'à la fin de la série.LE 261 ème jour correspond au deuxième confinement, mais l'augmentatopn semble commencer avant.
 ```{r}
 mobw[mobw$weekdays == "Saturday" | mobw$weekdays == "Sunday" , "arrets_transports"] <- NA
 
