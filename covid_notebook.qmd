@@ -44,9 +44,8 @@ SciViews::R("ts", lang="fr")
 
 <!--% Ajoutez le nombre de chunks que vous souhaitez. Répartissez-vous le travail correctement. Structurez la section en partie avec des titres explicites de niveau trois.-->
 
-```{r modif donnees}
 ### Modifications des données
-
+```{r modif donnees}
 mobility <- read("data/mobility_wallonia.rds")
 mobility <- labelise(mobility,
   label= list(
@@ -70,21 +69,19 @@ mobility_tsbl <- tsibble::as_tsibble(mobility)
 mobility_tsbl
 ```
 
-```{r skim Maréva}
 ### Résumé des données
-
+```{r skim Maréva}
 skimr::skim(mobility)
 ```
 
-```{r Maréva}
 ### Suppresion des données manquantes
-
+```{r Maréva}
 sdrop_na(mobility) -> mobility
 ```
 
-```{r ts commerce,loisir Maréva}
-### Conversion en série temporelle et analyses
 
+### Conversion en série temporelle et analyses
+```{r ts commerce,loisir Maréva}
 mobility_com_ts <- ts(mobility$commerces_loisirs, start = c(2020,46), frequency=365)
 plot(mobility_com_ts)
 
@@ -125,10 +122,8 @@ plot(mobility_com_median_wd, col=1:3)
 plot(mobility_com_median, stack=FALSE, resid=FALSE, col=1:2)
 ```
 
-
-```{r ts commerce,loisir 2 Maréva}
 ### Conversion en série temporelle et analyses
-
+```{r ts commerce,loisir 2 Maréva}
 mobility_com_moy <- tsd(mobility_com_ts, method="average", order=180 ,times=1)
 plot(mobility_com_moy, col=1:4)
 
@@ -159,7 +154,7 @@ mobw_ts4 <- aggregate(mobw_ts3, 52, FUN = collapse::fmean, ts.eps = 1/52)
 plot(mobw_ts4)
 ```
 
-```{r #joy}
+```{r #joy 2}
 mobility_parks_ts <- ts(mobility$parcs, start=2020, frequency=365)
 plot(mobility_parks_ts)
 
@@ -182,7 +177,7 @@ mobw_ts6 <- aggregate(mobw_ts5, 52, FUN = collapse::fmean, ts.eps = 1/52)
 plot(mobw_ts6)
 ```
 
-```{r #joy}
+```{r #joy 3}
 mobility_transport_ts <- ts(mobility$arrets_transports, start=2020, frequency=365)
 plot(mobility_transport_ts)
 

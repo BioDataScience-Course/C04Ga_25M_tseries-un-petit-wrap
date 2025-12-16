@@ -37,6 +37,40 @@ L'analyse est réalisée avec la [SciViews Box 2025](https://www.sciviews.org/so
 
 <!--% Présentez les analyses les plus pertinents que vous avez sélectionnés. Structurez la section en partie avec des titres explicites de niveau trois.-->
 
+```{r setup, include=FALSE}
+if (!"tools:tests" %in% search())
+  source(here::here("tests/tools_tests.R"), attach(NULL, name = "tools:tests"))
+SciViews::R("ts", lang="fr")
+```
+
+
+### Résumé des données
+```{r skim Maréva}
+skimr::skim(mobility)
+```
+
+### Modifications des données
+```{r modif donnees}
+mobility <- read("data/mobility_wallonia.rds")
+mobility <- labelise(mobility,
+  label= list(
+  retail_and_recreation_percent_change_from_baseline = "commerces_loisirs", 
+  grocery_and_pharmacy_percent_change_from_baseline = "alimentation_pharmacies", 
+  parks_percent_change_from_baseline = "parcs" ,
+  transit_stations_percent_change_from_baseline = "arrets transports",
+  workplaces_percent_change_from_baseline = "travail",
+  residential_percent_change_from_baseline ="residence"))
+mobility<- rename(mobility,
+  commerces_loisirs = "retail_and_recreation_percent_change_from_baseline",
+  alimentation_pharmacies = "grocery_and_pharmacy_percent_change_from_baseline",
+  parcs = "parks_percent_change_from_baseline",
+  arrets_transports = "transit_stations_percent_change_from_baseline",
+  travail = "workplaces_percent_change_from_baseline",
+  residence = "residential_percent_change_from_baseline")
+sdrop_na(mobility) -> mobility
+```
+
+
 ## Discussion et Conclusion
 
 <!--% En tenant compte du but de votre carnet de notes et de vos résultats, discutez de résultats et proposez des conclusions à votre analyse en 5 à 10 phrases. -->
