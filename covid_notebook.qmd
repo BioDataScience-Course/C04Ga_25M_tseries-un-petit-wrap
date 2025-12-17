@@ -76,7 +76,7 @@ skimr::skim(mobility)
 
 ### Suppresion des données manquantes
 ```{r Maréva}
-sdrop_na(mobility)
+sdrop_na(mobility) -> mobility
 ```
 
 ### Raccourcissement série
