@@ -153,9 +153,11 @@ acf_grocery_pharma <- acf(mobility_grocery_pharma_ts)
 
 mobility_grocery_pharma_trend <- trend.test(mobility_grocery_pharma_ts, R=999)
 plot(mobility_grocery_pharma_trend)
+abline(v=c(33,80,260,385), col="green", lwd=2)
 
 mobility_grocery_pharma_median <- tsd(mobility_grocery_pharma_ts, method="median", order=180 ,times=1)
 plot(mobility_grocery_pharma_median, col=1:4)
+abline(v=c(33,80,260,385), col="green", lwd=2)
 
 plot(mobility_grocery_pharma_median, stack=FALSE, resid=FALSE, col=1:2, leg=FALSE)
 legend(500,-50, c("série", "médiane"), col=1:2, lty=1)
@@ -163,7 +165,7 @@ abline(v=c(33,80,260,385), col="green", lwd=2)
 
 
 ```
-Concernant les trajets vers les commerces alimentaires et les pharmacies, on observe une chute brutale au démarrage du premier confinement, et une légère augmentation vers la fin du confinement. La fréquentation reste ensuite assez stable et le second confinement a un impact assez limité. Juste après la fin du second confinement, des valeurs plus élevées qui semblent correspondre à la situation avant confinements voir même plus sont observées.
+Concernant les trajets vers les commerces alimentaires et les pharmacies, on observe une chute brutale au démarrage du premier confinement, et une légère augmentation vers la fin du confinement. La fréquentation reste ensuite assez stable et le second confinement a un impact assez limité. Juste après la fin du second confinement, des valeurs plus élevées qui semblent correspondre à la situation avant confinements voir même plus sont observées.Les valeurs de la série passent sous la courbe rouge pendant le premier confinement, ce qui traduit des valeurs temporairement en dessous de la tendance, c'est beaucoup moins flagrant lors du second confinement.
 
 ```{r}
 mobw[mobw$weekdays == "Saturday" | mobw$weekdays == "Sunday" , "alimentation_pharmacies"] <- NA
@@ -192,7 +194,8 @@ abline(v=c(33,80,260,385), col="green", lwd=2)
 abline(v=c(15, 45, 75, 105, 135, 165, 195, 225, 255, 285, 315, 345, 375, 405, 435, 465, 495, 525, 555, 585, 615, 645, 695 ), col="yellow", lwd=1)
 ```
 
-Concernant les parcs, on observe une chute brutale mais d'amplitude assez faible, suivie d'une augmentation, puis d'une diminution. Lors du second déconfinement la fréquentation reste assez stable, avant de réaugmenter et de rediminuer. Ces augmentations et diminutions semblent suivre les saison : les deux fois l'augmentation commence dès avril et la diminution vers début septembre. ( les barres verticales jaunes, une tout les 30 jours, représentent approximativement le début de chaque mois, la première correspondant au 1er mars 2020)
+Concernant les parcs, on observe une chute brutale mais d'amplitude assez faible, suivie d'une augmentation, puis d'une diminution. Lors du second déconfinement la fréquentation reste assez stable, avant de réaugmenter et de rediminuer. Ces augmentations et diminutions semblent suivre les saison : les deux fois l'augmentation commence dès avril et la diminution vers début septembre. ( les barres verticales jaunes, une tout les 30 jours, représentent approximativement le début de chaque mois, la première correspondant au 1er mars 2020).Les valeurs de la série passent sous la courbe rouge pendant les deux confinements, ce qui traduit des valeurs temporairement en dessous de la tendance, c'est également le cas à partir de novembre 2021 (un peu avant 600 ème jour)
+
 
 ```{r}
 mobw[mobw$weekdays == "Saturday" | mobw$weekdays == "Sunday" , "parcs"] <- NA 
@@ -220,7 +223,7 @@ legend(500,-50, c("série", "médiane"), col=1:2, lty=1)
 abline(v=c(33,80,260,385), col="green", lwd=2)
 
 ```
-Les déplacements vers les arrêts de transports présentent une chute brutale au premier confinement, avant de réaugmenter progressivement. Une nouvelle diminution, cette fois plus faible et moins brusque que la première, est observée au début du second confinement. 
+Les déplacements vers les arrêts de transports présentent une chute brutale au premier confinement, avant de réaugmenter progressivement. Une nouvelle diminution, cette fois plus faible et moins brusque que la première, est observée au début du second confinement. Les valeurs de la série passent sous la courbe rouge pendant les deux confinements, ce qui traduit des valeurs temporairement en dessous de la tendance.
 ```{r}
 mobw[mobw$weekdays == "Saturday" | mobw$weekdays == "Sunday" , "arrets_transports"] <- NA
 
