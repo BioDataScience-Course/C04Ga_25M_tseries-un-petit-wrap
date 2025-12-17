@@ -76,7 +76,7 @@ skimr::skim(mobility)
 
 ### Suppresion des données manquantes
 ```{r Maréva}
-sdrop_na(mobility) -> mobility
+sdrop_na(mobility) ->mobility
 ```
 
 ### Raccourcissement série
@@ -188,7 +188,8 @@ plot(mobility_parks_median, stack=FALSE, resid=FALSE, col=1:2, leg=FALSE)
 legend(500,-50, c("série", "médiane"), col=1:2, lty=1)
 abline(v=c(33,80,260,385), col="green", lwd=2)
 ```
-Concernant les parcs,on observe une augmentation au début de la série, vers le 33 ème jour correspondant au premier confinement, il y a ensuite une diminution jusqu'au 250ème jour (le second confinement commence au 261ème), suivie d'une réaugmentation jusqu'au 300ème jour, ensuite une stabilisation et une dernière augmentation après le 800 ème jour.
+
+Concernant les parcs,on observe une augmentation au début de la série, vers le 33 ème jour correspondant au premier confinement, il y a ensuite une diminution jusqu'au 250ème jour (le second confinement commence au 261ème), suivie d'une réaugmentation jusqu'au 300ème jour.
 Les deux premières augmentation correspondent donc aux deux confinements.
 ```{r}
 mobw[mobw$weekdays == "Saturday" | mobw$weekdays == "Sunday" , "parcs"] <- NA 
