@@ -242,6 +242,10 @@ plot(mobility_travail_median, stack=FALSE, resid=FALSE, col=1:2, leg=FALSE)
 legend(500,-50, c("série", "médiane"), col=1:2, lty=1)
 abline(v=c(33,80,260,385), col="green", lwd=2)
 ```
+Cette analyse se concentre sur le temps passé par la population au travail hors de leur domicile. La série commence en 2020, l'année de la pandémie mondiale de coronavirus, ayant nécessité un confinement de la population à partir du 18 mars 2020. Lors de cette période, les déplacements en dehors du domicile étaient fortement limités, induisant donc à une baisse du temps de travail en dehors de celui-ci (majoritairement télétravail, ou activité professionnelle impossible). 
+Cependant, une hausse du temps de travail à l'extérieur est observable aux alentours de mai 2020, période où le déconfinement est progressif. Cette hausse au cours du temps est confirmée par la tendance générale, qui s'étend jusqu'en 2022. 
+La série composante filtrée montre que le temps de travail augmente mais de manière progressive. Quant aux résidus, les différences nottables lors du début de la période d'étude renforce le fait d'une baisse suivie d'une hausse progressive, puis d'une constante. 
+
 
 ```{r Moussa travail sans wk}
 # Les données du week-end sont remplacées par des valeurs manquantes
@@ -253,7 +257,8 @@ plot(mobw_travail_ts)
 mobw_travail_ts2 <- aggregate(mobw_travail_ts, 52, FUN = collapse::fmean, ts.eps = 1/52)
 plot(mobw_travail_ts2)
 ```
-
+Puisque l'analyse précédente prenait le temps de travail pour chaque jour de la semaine, incluant les week-end, il est donc normal d'observer des baisses sur 2 jours. Cette fois-ci, on se concentre sur la même étude mais en excluant les week-end. 
+La baisse du temps de travail au début de l'année 2020 est causée par le confinement mondial, mais suite à la hausse, certaines baisses sont tout de même observables. Une fois la pandémie terminée et que le temps de travail en dehors du domicile s'équilibre, il y a 2 baisses par an : au début/fin d'une année (fêtes de fin d'année), et une au milieu (vacances d'été). Même en excluant les week-end, les vacances subsistent et des baisses (légères) ont lieu tous les ans à différentes périodes, et ceux même en post pandémie.  
 
 ```{r Dany résidence}
 mobility_residence_ts <- ts(mobility$residence, start = c(2020, 46), frequency = 365)
