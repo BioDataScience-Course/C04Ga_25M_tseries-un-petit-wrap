@@ -1,5 +1,5 @@
 ---
-title: "___"
+title: "Carnet de note : impact du covid-19 sur la mobilité en Wallonie"
 author: "Azizi Moussa, Dezutter Joy, Fernandez Dany, Fontaine Maréva"
 format:
   html:
@@ -161,8 +161,10 @@ plot(mobility_grocery_pharma_median, stack=FALSE, resid=FALSE, col=1:2, leg=FALS
 legend(500,-50, c("série", "médiane"), col=1:2, lty=1)
 abline(v=c(33,80,260,385), col="green", lwd=2)
 
+
 ```
-Concernant les trajets vers les commerces alimentaires et les pharmacies, on observe une tendance globale en augmentatoin, particulièrement marquée aux alentours du 400ème jour, soit vers le second déconfinement.  A partir du 500 èmè jour l'augmentation continue mais plus faiblement.
+Concernant les trajets vers les commerces alimentaires et les pharmacies, on observe une chute brutale au démarrage du premier confinement, et une légère augmentation vers la fin du confinement. La fréquentation reste ensuite assez stable et le second confinement a un impact assez limité. Juste après la fin du second confinement, des valeurs plus élevées qui semblent correspondre à la situation avant confinements voir même plus sont observées 
+
 ```{r}
 mobw[mobw$weekdays == "Saturday" | mobw$weekdays == "Sunday" , "alimentation_pharmacies"] <- NA
 
@@ -187,6 +189,7 @@ plot(mobility_parks_median, col=1:4)
 plot(mobility_parks_median, stack=FALSE, resid=FALSE, col=1:2, leg=FALSE)
 legend(500,-50, c("série", "médiane"), col=1:2, lty=1)
 abline(v=c(33,80,260,385), col="green", lwd=2)
+abline(v=c(15, 45, 75, 105, 135, 165, 195, 225, 255, 285, 315, 345, 375, 405, 435, 465, 495, 525, 555, 585, 615, 645, 695 ), col="yellow", lwd=1)
 ```
 
 Concernant les parcs,on observe une augmentation au début de la série, vers le 33 ème jour correspondant au premier confinement, il y a ensuite une diminution jusqu'au 250ème jour (le second confinement commence au 261ème), suivie d'une réaugmentation jusqu'au 300ème jour.
