@@ -163,7 +163,7 @@ abline(v=c(33,80,260,385), col="green", lwd=2)
 
 
 ```
-Concernant les trajets vers les commerces alimentaires et les pharmacies, on observe une chute brutale au démarrage du premier confinement, et une légère augmentation vers la fin du confinement. La fréquentation reste ensuite assez stable et le second confinement a un impact assez limité. Juste après la fin du second confinement, des valeurs plus élevées qui semblent correspondre à la situation avant confinements voir même plus sont observées 
+Concernant les trajets vers les commerces alimentaires et les pharmacies, on observe une chute brutale au démarrage du premier confinement, et une légère augmentation vers la fin du confinement. La fréquentation reste ensuite assez stable et le second confinement a un impact assez limité. Juste après la fin du second confinement, des valeurs plus élevées qui semblent correspondre à la situation avant confinements voir même plus sont observées.
 
 ```{r}
 mobw[mobw$weekdays == "Saturday" | mobw$weekdays == "Sunday" , "alimentation_pharmacies"] <- NA
@@ -192,8 +192,8 @@ abline(v=c(33,80,260,385), col="green", lwd=2)
 abline(v=c(15, 45, 75, 105, 135, 165, 195, 225, 255, 285, 315, 345, 375, 405, 435, 465, 495, 525, 555, 585, 615, 645, 695 ), col="yellow", lwd=1)
 ```
 
-Concernant les parcs,on observe une augmentation au début de la série, vers le 33 ème jour correspondant au premier confinement, il y a ensuite une diminution jusqu'au 250ème jour (le second confinement commence au 261ème), suivie d'une réaugmentation jusqu'au 300ème jour.
-Les deux premières augmentation correspondent donc aux deux confinements.
+Concernant les parcs, on observe une chute brutale mais d'amplitude assez faible, suivie d'une augmentation, puis d'une diminution. Lors du second déconfinement la fréquentation reste assez stable, avant de réaugmenter et de rediminuer. Ces augmentations et diminutions semblent suivre les saison : les deux fois l'augmentation commence dès avril et la diminution vers début septembre. ( les barres verticales jaunes, une tout les 30 jours, représentent approximativement le début de chaque mois, la première correspondant au 1er mars 2020)
+
 ```{r}
 mobw[mobw$weekdays == "Saturday" | mobw$weekdays == "Sunday" , "parcs"] <- NA 
 
@@ -220,7 +220,7 @@ legend(500,-50, c("série", "médiane"), col=1:2, lty=1)
 abline(v=c(33,80,260,385), col="green", lwd=2)
 
 ```
-Les déplacements vers les arrêts de transports en commun présentent une légère augmentation au début de la série, avant de diminuer. Peu après le 200 ème jour, la tendance globale est à l'augmentation jusqu'à la fin de la série.LE 261 ème jour correspond au deuxième confinement, mais l'augmentatopn semble commencer avant.
+Les déplacements vers les arrêts de transports présentent une chute brutale au premier confinement, avant de réaugmenter progressivement. Une nouvelle diminution, cette fois plus faible et moins brusque que la première, est observée au début du second confinement. 
 ```{r}
 mobw[mobw$weekdays == "Saturday" | mobw$weekdays == "Sunday" , "arrets_transports"] <- NA
 
