@@ -44,7 +44,6 @@ SciViews::R("ts", lang="fr")
 SciViews::R("explore", lang="fr")
 ```
 
-
 ### Importation et modifications des données
 
 ```{r modif donnees}
@@ -263,5 +262,3 @@ En somme, ces deux composantes ont subit des effets semblables par la pandémie 
 ## Discussion et Conclusion
 
 <!--% En tenant compte du but de votre carnet de notes et de vos résultats, discutez de résultats et proposez des conclusions à votre analyse en 5 à 10 phrases. -->
-
-jjjjjjj
