@@ -1,5 +1,5 @@
 ---
-title: "___"
+title: "Impact du covid-19 sur la mobilité en Wallonie"
 author: "Azizi Moussa, Dezutter Joy, Fernandes Dany, Fontaine Maréva"
 format:
   pdf:
