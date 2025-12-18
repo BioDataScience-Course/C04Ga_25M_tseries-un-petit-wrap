@@ -31,8 +31,6 @@ Notre objectif est de déterminer l'impact de la pandémie de COVID-19 sur la mo
 
 Les données sur la mobilité des communautés pendant le COVID-19 en Belgique proviennent de Google : <https://www.google.com/covid19/mobility/.> .Ces données sont issues de l'historique de position des utilisateurs Google ayant activé cette fonction et ont été anonymisées.
 
-L'analyse est réalisée avec la [SciViewsBox2025] (https://www.sciviews.org/software/svbox/) dans [Saturn Cloud](https://saturncloud.io) (Linux), utilisant le [logiciel R](https://www.r-project.org) (`r R.version.string`). Le package {pastecs} version `r packageVersion("pastecs")` est utilisé pour étudier la série temporelle.
-
 ## Résultats
 
 <!--% Présentez les analyses les plus pertinents que vous avez sélectionnés. Structurez la section en partie avec des titres explicites de niveau trois.-->
@@ -262,4 +260,5 @@ En somme, ces deux composantes ont subit des effets semblables par la pandémie 
 ## Discussion et Conclusion
 
 <!--% En tenant compte du but de votre carnet de notes et de vos résultats, discutez de résultats et proposez des conclusions à votre analyse en 5 à 10 phrases. -->
+
 jjjjjjj
