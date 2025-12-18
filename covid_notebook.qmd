@@ -250,9 +250,13 @@ legend(500,-50, c("série", "médiane"), col=1:2, lty=1)
 abline(v=c(33,80,260,385), col="green", lwd=2)
 ```
 Cette analyse se concentre sur les déplacements de la population allant travail hors de leur domicile. La série commence en 2020, l'année de la pandémie mondiale de coronavirus, ayant nécessité un confinement de la population à partir du 18 mars 2020. Lors de cette période, les déplacements en dehors du domicile étaient fortement limités, induisant donc à une baisse du déplacement pour le travail en dehors de celui-ci (majoritairement télétravail, ou activité professionnelle impossible). 
-Cependant, une hausse est observable aux alentours de mai 2020, période où le déconfinement est progressif. Cette hausse au cours du temps est confirmée par la tendance générale, qui s'étend jusqu'en 2022. 
-La série composante filtrée montre que les déplacements augmentent mais de manière progressive. Quant aux résidus, les différences notables lors du début de la période d'étude renforce le fait d'une baisse suivie d'une hausse progressive, puis d'une constante. 
+ 
 
+Cependant, sur la figure utilisant la méthode des médianes mobiles, une hausse est observable aux alentours de mai 2020, période où le déconfinement est progressif. Cette hausse au cours du temps est confirmée par la tendance générale, qui s'étend jusqu'en 2022. Cette augmentation progressive atteint une valeur maximale avant l'été 2021, avant de subir une rechute temporaire (courte) et de reprendre de l'importance aux alentour de septembre.
+
+La série de la composante filtrée montre que les déplacements augmentent mais de manière progressive. Quant aux résidus, les différences notables lors du début de la période d'étude renforce le fait d'une baisse suivie d'une hausse progressive, puis d'une constante. 
+
+Un élément est également nettement visible entre la période de confinement et de déconfinement : les fluctuations. Déjà présentes lors du confinement, l'amplitude de celles-ci sont moins marquées. La différence très contrastée se voit également dans la figure de l'autocorrélation de la série : l'autocorrélation est forte, mais bien plus importante au début de la série (2020) qu'à la fin (2022). 
 
 ```{r Moussa travail sans wk}
 # Les données du week-end sont remplacées par des valeurs manquantes
@@ -264,8 +268,11 @@ plot(mobw_travail_ts)
 mobw_travail_ts2 <- aggregate(mobw_travail_ts, 52, FUN = collapse::fmean, ts.eps = 1/52)
 plot(mobw_travail_ts2)
 ```
-Puisque l'analyse précédente prenait les déplacements professionnels pour chaque jour de la semaine, incluant les week-end, il est donc normal d'observer des baisses sur 2 jours. Cette fois-ci, on se concentre sur la même étude mais en excluant les week-end. 
-La baisse de mobilité au travail au début de l'année 2020 est causée par le confinement mondial, mais suite à la hausse, certaines baisses sont tout de même observables. Une fois la pandémie terminée et que les déplacements en dehors du domicile s'équilibre, il y a 2 baisses par an : au début/fin d'une année (fêtes de fin d'année), et une au milieu (vacances d'été). Même en excluant les week-end, les vacances subsistent et des baisses (légères) ont lieu tous les ans à différentes périodes, et ceux même en post pandémie.  
+Puisque l'analyse précédente prenait les déplacements professionnels pour chaque jour de la semaine, incluant les week-end, il est donc normal d'observer des baisses sur 2 jours. Cette fois-ci, on se concentre sur la même étude mais en excluant les week-end.
+
+La baisse de mobilité au travail au début de l'année 2020 est causée par le confinement mondial, mais suite à la hausse, certaines baisses sont tout de même observables. Une fois la pandémie terminée et que les déplacements en dehors du domicile s'équilibre, il y a 2 baisses par an : au début/fin d'une année (fêtes de fin d'année), et une au milieu (vacances d'été). Même en excluant les week-end, les vacances subsistent et des baisses (légères) ont lieu tous les ans à différentes périodes, et ceux même en post pandémie. 
+
+En général, les reprises les plus importantes sont remarquables aux alentours de mars et de septembre, tandis que les valeurs les plus basses sont localisées autour de décembre et de juin. Il est tout de même important de préciser que ces valeurs les plus basses restent plus fortes que celles enregistrées pour l'année 2020 lors du confinement. Ce point montre à quel point la pandémie a eu plus d'impact sur la baisse de mobilité au travail que les vacances ou les week-end. 
 
 ```{r Dany résidence}
 mobility_residence_ts <- ts(mobility$residence, start = c(2020, 46), frequency = 365)
