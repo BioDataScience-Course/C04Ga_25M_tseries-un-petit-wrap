@@ -2,8 +2,9 @@
 title: "Impact du covid-19 sur la mobilité en Wallonie"
 author: "Azizi Moussa, Dezutter Joy, Fernandes Dany, Fontaine Maréva"
 format:
-  pdf:
-    documentclass: report
+  html:
+    code-fold: true
+    code-tools: true
     toc: true
 editor: visual
 lang: fr
@@ -165,7 +166,7 @@ Un élément est également nettement visible entre la période de confinement e
 
 ### Analyses alimentation-pharmacies
 
-```{r #joy}
+```{r joy}
 mobility_grocery_pharma_ts <- ts(mobility$alimentation_pharmacies, start=2020, frequency=365)
 
 acf_grocery_pharma <- acf(mobility_grocery_pharma_ts)
@@ -197,6 +198,7 @@ Dans l'ensemble, Ces deux composantes ont subit des effets semblables, même si 
 
 Cette section analyse l’évolution de la mobilité résidentielle. Contrairement aux autres catégories de mobilité (travail, commerces, loisirs, parcs), cette variable ne mesure pas des déplacements vers l’extérieur, mais constitue plutôt un indicateur du temps passé à domicile. Une augmentation de la mobilité résidentielle trace soit duit donc une réduction des déplacements hors domicile. Pour cette raison, et parce qu’elle reflète directement les mesures de confinement et de télétravail, la mobilité résidentielle est analysée séparément.
 
+
 ####Évolution temporelle de la mobilité résidentielle
 
 ```{r}
@@ -211,6 +213,7 @@ Durant cette première phase de confinement, la mobilité résidentielle atteint
 À partir du déconfinement progressif du printemps et de l'été 2020, on observe une diminution graduelle de la mobilité résidentielle. Cette baisse traduit une reprise partielle des déplacements vers l'extérieur, notamment durant la période estivale. Toutefois, il est important de noter que cette diminution ne ramène pas la mobilité résidentielle à son niveau initial. Même en dehors des périodes de confinement strict, le temps passé à domicile reste supérieur à celui observé avant la pandémie, suggérant un changement durable des comportements.
 
 À l'automne 2020, la série montre une nouvelle augmentation du temps passé à domicile, correspondant à la mise en place du second confinement. Bien que cette hausse soit généralement moins brutale que celle observée au printemps 2020, elle confirme que les restrictions sanitaires continuent d'avoir un impact direct sur les habitudes de vie. En fin de période d'étude, la mobilité résidentielle demeure globalement élevée par rapport aux niveaux pré-COVID, indiquant que les effets de la pandémie persistent au-delà des phases de confinement strict.
+
 
 ####Tendance à long terme et structure de la série
 
@@ -241,13 +244,6 @@ En outre, l'ACF révèle une forte persistance temporelle, particulièrement dur
 
 Toutefois, bien que ces effets hebdomadaires soient statistiquement détectables, ils restent secondaires par rapport aux ruptures majeures induites par les confinements. L'évolution globale de la mobilité résidentielle est avant tout dictée par les décisions politiques et les mesures de santé publique, plutôt que par les variations cycliques habituelles.
 
-####Conclusion
-
-L'analyse de la mobilité résidentielle montre que la pandémie de COVID-19 a eu un impact majeur et durable sur le temps passé à domicile. Les confinements successifs ont provoqué des augmentations abruptes et sans précédent de la mobilité résidentielle, tandis que les phases de déconfinement n'ont entraîné qu'un retour partiel vers la situation pré-pandémique. Cette variable apparaît ainsi comme un excellent indicateur synthétique de l'impact des mesures sanitaires.
-
-Le maintien d'un niveau élevé de mobilité résidentielle en fin de période suggère que certains changements, tels que le télétravail ou la réduction des déplacements non essentiels, pourraient s'inscrire dans la durée. La mobilité résidentielle constitue donc un miroir inversé des autres formes de mobilité et offre un éclairage central sur les transformations des modes de vie induites par la pandémie.
-
-Concernant les trajets vers les commerces alimentaires et les pharmacies, on observe une chute brutale au démarrage du premier confinement, et une légère augmentation vers la fin du confinement. La fréquentation reste ensuite assez stable et le second confinement a un impact assez limité. Juste après la fin du second confinement, des valeurs plus élevées qui semblent correspondre à la situation avant confinements voir même plus sont observées.Les valeurs de la série passent sous la courbe rouge pendant le premier confinement, ce qui traduit des valeurs temporairement en dessous de la tendance, c'est beaucoup moins flagrant lors du second confinement.
 
 ###Comparaison travail-alimentation/pharmacies
 
@@ -262,3 +258,12 @@ En somme, ces deux composantes ont subit des effets semblables par la pandémie 
 ## Discussion et Conclusion
 
 <!--% En tenant compte du but de votre carnet de notes et de vos résultats, discutez de résultats et proposez des conclusions à votre analyse en 5 à 10 phrases. -->
+<<<<<<< HEAD
+=======
+
+L'analyse de la mobilité résidentielle montre que la pandémie de COVID-19 a eu un impact majeur et durable sur le temps passé à domicile: Les confinements successifs ont provoqué des augmentations importantes du temps passé à domicile, tandis que les phases de déconfinement n'ont entraîné qu'un retour partiel vers la situation pré-pandémique, ce qui suggère que certains changements d'habitudes, tels que le télétravail ou la réduction des déplacements non essentiels pourraient se maintenir.
+
+A l'inverse, les déplacements ont tous tendance à être négativement impacté. Pour les lieux dits non essentiels (loisirs, commerces non alimentaires, parcs) les taux de fréquentation sont en dessous des valeurs habituelles et ces taux de fréquentation prennent plus de temps à revenir à la normale, ceci pourrait être dû à l'allègement progressif  des mesures restrictives. Concernant les déplacements vers les parcs, il faut noter que les saisons semblent avoir un effet important sur la fréquentation, les périodes froides étant celles où la fréquentation est la plus faible. On observe quand-même une diminution rapide lors du début de premier confinement, et à l'inverse une hausse juste au démarrage du second, qui ne semble pas suivre la tendance saisonnière habituelle.
+Pour les commerces essentiels ( alimentaires et pharmacies), ainsi que les déplacements pour le travail, le début premier confinement marque une forte diminution de la fréquentation, alors que cela est beaucoup moins marqué lors du second, la fréquentation pré-pandémie est également réatteinte après le second déconfinement. 
+
+>>>>>>> 81d044cb1954cddb7fa3d8d12b077816778bfb87
