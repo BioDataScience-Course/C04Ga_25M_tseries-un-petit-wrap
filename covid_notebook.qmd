@@ -248,6 +248,7 @@ plot(mobility_travail_median, col = 1:3)
 plot(mobility_travail_median, stack=FALSE, resid=FALSE, col=1:2, leg=FALSE)
 legend(500,-50, c("série", "médiane"), col=1:2, lty=1)
 abline(v=c(33,80,260,385), col="green", lwd=2)
+
 ```
 Cette analyse se concentre sur les déplacements de la population allant travail hors de leur domicile. La série commence en 2020, l'année de la pandémie mondiale de coronavirus, ayant nécessité un confinement de la population à partir du 18 mars 2020. Lors de cette période, les déplacements en dehors du domicile étaient fortement limités, induisant donc à une baisse du déplacement pour le travail en dehors de celui-ci (majoritairement télétravail, ou activité professionnelle impossible). 
 

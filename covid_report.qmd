@@ -43,13 +43,14 @@ if (!"tools:tests" %in% search())
 SciViews::R("ts", lang="fr")
 ```
 
-
 ### Résumé des données
+
 ```{r skim Maréva}
 skimr::skim(mobility)
 ```
 
 ### Modifications des données
+
 ```{r modif donnees}
 mobility <- read("data/mobility_wallonia.rds")
 mobility <- labelise(mobility,
@@ -69,7 +70,6 @@ mobility<- rename(mobility,
   residence = "residential_percent_change_from_baseline")
 sdrop_na(mobility) -> mobility
 ```
-
 
 ## Discussion et Conclusion
 
