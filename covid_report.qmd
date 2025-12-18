@@ -227,14 +227,13 @@ En outre, l'ACF révèle une forte persistance temporelle, particulièrement dur
 
 Toutefois, bien que ces effets hebdomadaires soient statistiquement détectables, ils restent secondaires par rapport aux ruptures majeures induites par les confinements. L'évolution globale de la mobilité résidentielle est avant tout dictée par les décisions politiques et les mesures de santé publique, plutôt que par les variations cycliques habituelles.
 
-<<<<<<< HEAD
+
 ####Conclusion
 
 L'analyse de la mobilité résidentielle montre que la pandémie de COVID-19 a eu un impact majeur et durable sur le temps passé à domicile. Les confinements successifs ont provoqué des augmentations abruptes et sans précédent de la mobilité résidentielle, tandis que les phases de déconfinement n'ont entraîné qu'un retour partiel vers la situation pré-pandémique. Cette variable apparaît ainsi comme un excellent indicateur synthétique de l'impact des mesures sanitaires.
 Le maintien d'un niveau élevé de mobilité résidentielle en fin de période suggère que certains changements, tels que le télétravail ou la réduction des déplacements non essentiels, pourraient s'inscrire dans la durée. La mobilité résidentielle constitue donc un miroir inversé des autres formes de mobilité et offre un éclairage central sur les transformations des modes de vie induites par la pandémie.
 Concernant les trajets vers les commerces alimentaires et les pharmacies, on observe une chute brutale au démarrage du premier confinement, et une légère augmentation vers la fin du confinement. La fréquentation reste ensuite assez stable et le second confinement a un impact assez limité. Juste après la fin du second confinement, des valeurs plus élevées qui semblent correspondre à la situation avant confinements voir même plus sont observées.Les valeurs de la série passent sous la courbe rouge pendant le premier confinement, ce qui traduit des valeurs temporairement en dessous de la tendance, c'est beaucoup moins flagrant lors du second confinement.
-=======
->>>>>>> a34c171355408cb4fea2ce0f8332d7895a59feb9
+
 
 ###Comparaison travail-alimentation/pharmacies
 
