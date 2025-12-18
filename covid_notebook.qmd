@@ -235,7 +235,6 @@ plot(mobw_ts8)
 
 ```{r Moussa travail}
 mobility_travail_ts <- ts(mobility$travail, start = c(2020, 46), frequency = 365)
-plot(mobility_travail_ts)
 
 acf_travail <- acf(mobility_travail_ts)
 
