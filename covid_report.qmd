@@ -176,7 +176,7 @@ Cette section analyse l’évolution de la mobilité résidentielle. Contraireme
 1. Évolution temporelle de la mobilité résidentielle  
 ```{r}
 mobility_residence_ts <- ts(mobility$residence, start = c(2020, 46), frequency = 365)
-plot(mobility_residence_ts)
+plot(mobility_residence_ts, xlab = "Temps [années]", ylab = "Variation du temps passé à domicile [%]", main = " Evolution temporelle de la mobilité résidentielle en Wallonie (2020-2021)")
 ```
 L’analyse de la série temporelle de la mobilité résidentielle met en évidence une augmentation très marquée du temps passé à domicile dès le début de la pandémie de COVID-19. Plus précisément, on observe un saut abrupt de la série autour du mois de mars 2020, correspondant à l’entrée en vigueur du premier confinement. Cette hausse soudaine traduit l’application de mesures sanitaires strictes, telles que la fermeture des écoles et commerces non essentiels, l’interdiction des déplacements non nécessaires et la généralisation du télétravail.  
 
@@ -190,7 +190,7 @@ Durant cette première phase de confinement, la mobilité résidentielle atteint
 
 ```{r}
 mobility_residence_median <- tsd(mobility_residence_ts, method = "median", order = 180, times = 1)
-plot(mobility_residence_median, stack=FALSE, resid=FALSE, col=1:2, leg=FALSE)
+plot(mobility_residence_median, stack=FALSE, resid=FALSE, col=1:2, leg=FALSE, xlab = "Temps [jours]", ylab = "Variation du temps passé à domicile [%]", main = "Décomposition de la série de mobilité résidentielle (2020-2021)")
 legend(500,-50, c("série", "médiane"), col=1:2, lty=1)
 abline(v=c(33,80,260,385), col="green", lwd=2)
 ```
@@ -205,7 +205,7 @@ Les résidus ne montrent pas de structure particulière persistante à l'échell
 3. Effets hebdomadaires et persistance temporelle  
 
 ```{r}
-acf_residence <- acf(mobility_residence_ts)
+acf_residence <- acf(mobility_residence_ts, xlab = "Retard/Lag [jours]", ylab = "Autocorrélation", main = "ACF de la mobilité résidentielle")
 ```
 L'étude de la fonction d'autocorrélation (ACF) de la série de mobilité résidentielle met en évidence une autocorrélation significative à un décalage de sept jours, ce qui correspond à un cycle hebdomadaire. Ce résultat est attendu, car les comportements résidentiels diffèrent généralement entre les jours de semaine et les week-ends, les individus passant en moyenne davantage de temps à domicile durant ces derniers.  
 
