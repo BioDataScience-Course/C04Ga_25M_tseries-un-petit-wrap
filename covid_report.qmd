@@ -165,7 +165,6 @@ Malgrès une faible corrélation (0.57) entre ces 2 variables
 # Analyse travail
 ```{r Moussa travail}
 mobility_travail_ts <- ts(mobility$travail, start = c(2020, 46), frequency = 365)
-plot(mobility_travail_ts)
 
 acf_travail <- acf(mobility_travail_ts)
 
@@ -189,21 +188,8 @@ La série de la composante filtrée montre que les déplacements augmentent mais
 Un élément est également nettement visible entre la période de confinement et de déconfinement : les fluctuations. Déjà présentes lors du confinement, l'amplitude de celles-ci sont moins marquées. La différence très contrastée se voit également dans la figure de l'autocorrélation de la série : l'autocorrélation est forte, mais bien plus importante au début de la série (2020) qu'à la fin (2022).
 
 
-```{r Moussa travail sans wk}
-# Les données du week-end sont remplacées par des valeurs manquantes
-mobw[mobw$weekdays == "Saturday" | mobw$weekdays == "Sunday" , "travail"] <- NA
 
-mobw_travail_ts <- ts(mobw$travail, start = c(2020, 46), frequency = 365)
-plot(mobw_travail_ts)
 
-mobw_travail_ts2 <- aggregate(mobw_travail_ts, 52, FUN = collapse::fmean, ts.eps = 1/52)
-plot(mobw_travail_ts2)
-```
-Puisque l'analyse précédente prenait les déplacements professionnels pour chaque jour de la semaine, incluant les week-end, il est donc normal d'observer des baisses sur 2 jours. Cette fois-ci, on se concentre sur la même étude mais en excluant les week-end.
-
-La baisse de mobilité au travail au début de l'année 2020 est causée par le confinement mondial, mais suite à la hausse, certaines baisses sont tout de même observables. Une fois la pandémie terminée et que les déplacements en dehors du domicile s'équilibre, il y a 2 baisses par an : au début/fin d'une année (fêtes de fin d'année), et une au milieu (vacances d'été). Même en excluant les week-end, les vacances subsistent et des baisses (légères) ont lieu tous les ans à différentes périodes, et ceux même en post pandémie. 
-
-En général, les reprises les plus importantes sont remarquables aux alentours de mars et de septembre, tandis que les valeurs les plus basses sont localisées autour de décembre et de juin. Il est tout de même important de préciser que ces valeurs les plus basses restent plus fortes que celles enregistrées pour l'année 2020 lors du confinement. Ce point montre à quel point la pandémie a eu plus d'impact sur la baisse de mobilité au travail que les vacances ou les week-end.
 
 >>>>>>> 6d5d26abe2e9e14b56a43e0d07926ce929d2a1cd
 ## Discussion et Conclusion
