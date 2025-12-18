@@ -2,8 +2,9 @@
 title: "Impact du covid-19 sur la mobilité en Wallonie"
 author: "Azizi Moussa, Dezutter Joy, Fernandes Dany, Fontaine Maréva"
 format:
-  pdf:
-    documentclass: report
+  html:
+    code-fold: true
+    code-tools: true
     toc: true
 editor: visual
 lang: fr
@@ -166,7 +167,7 @@ Un élément est également nettement visible entre la période de confinement e
 
 ### Analyses alimentation-pharmacies
 
-```{r #joy}
+```{r joy}
 mobility_grocery_pharma_ts <- ts(mobility$alimentation_pharmacies, start=2020, frequency=365)
 
 acf_grocery_pharma <- acf(mobility_grocery_pharma_ts)
