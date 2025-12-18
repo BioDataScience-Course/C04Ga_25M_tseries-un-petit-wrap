@@ -1,6 +1,6 @@
 ---
 title: "___"
-author: "Azizi Moussa, Dezutter Joy, Fernandez Dany, Fontaine Maréva"
+author: "Azizi Moussa, Dezutter Joy, Fernandes Dany, Fontaine Maréva"
 format:
   pdf:
     documentclass: report
@@ -17,19 +17,19 @@ lang: fr
 
 <!--% Rédigez l'introduction de ce rapport.-->
 
-Google répertorie les données sur la mobilité des communautés pendant le COVID-19 (elles ne sont plus répertoriés depuis le 15/10/2022), celles-ci sont disponibles ici : https://www.google.com/covid19/mobility/ Nous allons analyser ces données en nous concentrant sur les années 2020 et 2021, l'année 2020 ayant été fortement impactée au niveau économique notamment due aux règles au niveau des déplacements et l'année 2021 également mais ayant subit des mesures moins "strictes".
+Google a publié des rapports de mobilité communautaire pendant la pandémie de COVID-19, fournissant des données agrégées sur les déplacements par catégorie de lieux (par exemple : commerces et loisirs, magasins d'alimentation et pharmacies, parcs, transports en commun, lieux de travail, zones résidentielles). Ces rapports officiels ne sont plus mis à jour depuis le 15 octobre 2022, mais les données historiques restent accessibles au public. Dans cette étude, nous exploitons ces données pour la Wallonie en nous concentrant sur les années 2020 et 2021. En effet, l'année 2020 a été fortement affectée par la pandémie, notamment sur le plan économique et social, en raison de mesures de confinement très strictes, tandis que 2021 a connu un certain assouplissement des restrictions (grâce, entre autres, aux premières campagnes de vaccination) malgré la persistance du virus. Comparer ces deux années permettra d'illustrer l'impact immédiat de la crise sanitaire et son évolution sur les comportements de mobilité dans la région.
 
 ## But
 
 <!--% Rédigez le but de ce rapport.-->
 
-Notre objectif est de déterminer l'impact du COVID-19 sur les déplacements des Wallons, pour ce faire nous allons analyser l'évolution de la fréquentation de lieux au cours du temps et également par catégorie (commerces, pharmacies, parcs, lieux de travail,...)
+Notre objectif est de déterminer l'impact de la pandémie de COVID-19 sur la mobilité des Wallons, en analysant l'évolution de la fréquentation des différents types de lieux au cours de la période 2020-2021. Concrètement, il s'agit d'examiner comment les catégories d'endroits telles que les lieux de travail, les commerces, les parcs, les transports en commun ou encore les zones résidentielles ont vu leur fréquentation varier pendant les phases aiguës de la pandémie. Cette analyse mettra en évidence quels aspects de la vie quotidienne ont été les plus affectés par les restrictions sanitaires, fournissant ainsi un éclairage quantitatif sur l'ampleur des changements de comportement de déplacement en Wallonie.
 
 ## Matériel et méthodes
 
 <!--% Cette section doit comprendre deux parties. La première partie doit expliciter le données employées et la seconde traiter des analyses réalisées et des logiciels employés.-->
 
-Les données sur la mobilité des communautés pendant le COVID-19 en Belgique proviennent de Google : <https://www.google.com/covid19/mobility/.> Ces données sont issues de l'historique de position des utilisateurs Google ayant activé cette fonction et ont été anonymisées.
+Les données sur la mobilité des communautés pendant le COVID-19 en Belgique proviennent de Google : <https://www.google.com/covid19/mobility/.> .Ces données sont issues de l'historique de position des utilisateurs Google ayant activé cette fonction et ont été anonymisées.
 
 L'analyse est réalisée avec la [SciViews Box 2025](https://www.sciviews.org/software/svbox/) dans [Saturn Cloud](https://saturncloud.io) (Linux), utilisant le [logiciel R](https://www.r-project.org) (`r R.version.string`). Le package {pastecs} version `r packageVersion("pastecs")` est utilisé pour étudier la série temporelle.
 
@@ -41,26 +41,11 @@ L'analyse est réalisée avec la [SciViews Box 2025](https://www.sciviews.org/so
 if (!"tools:tests" %in% search())
   source(here::here("tests/tools_tests.R"), attach(NULL, name = "tools:tests"))
 SciViews::R("ts", lang="fr")
+SciViews::R("explore", lang="fr")
 ```
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-### Résumé des données
-
-```{r skim Maréva}
-skimr::skim(mobility)
-```
-
-### Modifications des données
-
-=======
 
 ### Importation et modifications des données
->>>>>>> 6d5d26abe2e9e14b56a43e0d07926ce929d2a1cd
-=======
-### Importation et modifications des données
-
->>>>>>> 7f10054837fa72357e5cf71740c8aa2218d4ebf3
 ```{r modif donnees}
 mobility <- read("data/mobility_wallonia.rds")
 mobility <- labelise(mobility,
@@ -83,11 +68,7 @@ mobility <- filter(mobility, date >="2020-02-15" & date <="2021-12-31")
 mobility
 ```
 
-<<<<<<< HEAD
-=======
 ### Résumé des données
-
-
 ```{r skim Maréva}
 skimr::skim(mobility)
 ```
@@ -95,23 +76,24 @@ Tout d'abord, il nous faut noter que le 33ème jour après le 15 février 2020 (
 A noter que les confinements et déconfinements ont été progressifs pour certains aspects, par exemple, certains commerces non-essentiels ont été obligés de fermer plus tôt que d'autres ou encore que certains employés n'ont pas su se mettre au télé-travail aussi vite que d'autres.
 
 ### Analyse globale série
-
 ```{r}
 # Corrélation 
 mob_cor <- correlation(mobility[, 2:7])
 tabularise(mob_cor, digits = 2)
 plot(mob_cor)
 
+mob_pca <- pca(data = mobility, ~ commerces_loisirs + alimentation_pharmacies + parcs + arrets_transports + travail + residence, scale = TRUE)
+summary(mob_pca)
+chart$scree(mob_pca, fill = "cornsilk")
+chart$loadings(mob_pca, choices = c(1, 2))
 ```
-
-
 Nous pouvons constater une corrélation assez forte entre la fréquentation des commerces/loisirs, des commerces d'alimentation/pharmacies et des arrêts de transports. Nous observons également une corrélation moyenne entre la fréquentation des arrêts de transports et des déplacements vers le travail. La variable Résidence n'est ici corrélée à aucune autre, en effet, tandis que les fréquentations des autres vont diminuer suite au COVID19, celles des lieux de résidences va augmenter suite aux mesures de confinement
+
 
 ### Analyses et comparaison de la fréquentation des commerces non-essentiels/loisirs et des parcs
 
-
+####Analyse commerces, loisirs
 ```{r}
-#Analyse commerces, loisirs
 mob_com_ts <- ts(mobility$commerces_loisirs, start = c(2020,46), frequency=365)
 
 mob_com_median <- tsd(mob_com_ts, method="median", order=180 ,times=1)
@@ -121,7 +103,6 @@ plot(mob_com_median, stack=FALSE, resid=FALSE, col=1:2, leg=FALSE)
 legend(500,-50, c("série", "médiane"), col=1:2, lty=1)
 abline(v=c(33,80,260,350), col="green", lwd=2)
 ```
-
 Afin de déterminer l'impact du COVID19 sur la fréquentation des commerces non-essentiels et des lieux de loisirs (restaurant, café, piscine, musée, cinéma, parc à thème,...), nous avons tout d'abord créé puis décomposé notre série temporelle via la méthode par médiane mobile, cela nous permet de visualiser notre série dans l'ensemble ainsi que d'obtenir un graphique (filtered) permettant de représenter la tendance de fond de la série. Nous avons également représenté les différents confinements et déconfinements à l'aide de barres verticales vertes (la 1ere représentant la 1er confinement, la 2eme représentant le 1er déconfinement, la 3ème représentant le second confinement et la 4ème le second déconfinement). 
 
 Lorsque l'on observe le graphique représentant l'évolution de la série, on aperçoit une diminution brutale de la fréquentation aux alentours du 30ème jour, cela correspondant au début du premier confinement et de la fermeture obligatoire de la majorité des commerces non-essentiels et des centres de loisirs, il y a ensuite une augmentation commencant aux alentour du 90ème jour qui correspond donc au déconfinement progressif de certains commerces non-essentiels ainsi que la réouverture de certains loisirs (piscine, musée, parcs à thème) progressivement. Cette augmentation continue jusqu'au 180ème jour et ensuite se stabilise jusqu'au 220ème jour +/-, cela correspond donc au moment où il n'y avait plus de confinement. Nous pouvons aussi noter que cette augmentation est aussi due au faite que cette période correspond aux mois de Juillet/Août (du 138ème jour au 199ème jour), les conditions météo ainsi que les vacances de nombreuses personnes combiné à la fin de ce premier confinement (envie de sortir de chez soi) ont sans aucun doute également un lien dans la fréquentation de ces lieux. 
@@ -131,9 +112,8 @@ Cependant, nous observons que l'augmentation se déroule assez tôt après l'ann
 Les valeurs de cette série passent sous la courbe rouge (représentant l'estimation de la tendance) lors des 2 confinements, cela indiquant que les taux de fréquentation sont en dessous de la moyenne. On peut également constater que ces taux de fréquentation prennent plus de temps à revenir au "taux attendu" (courbe rouge donc), montrant bien que les réouvertures ont été progressives au cours du temps.
 
 
+####Analyse parcs
 ```{r}
-#Analyse parcs
-
 mob_parks_ts <- ts(mobility$parcs, start=2020, frequency=365)
 
 mob_parks_median <- tsd(mob_parks_ts, method="median", order=180 ,times=1)
@@ -143,7 +123,6 @@ plot(mob_parks_median, stack=FALSE, resid=FALSE, col=1:2, leg=FALSE)
 legend(450,0, c("série", "médiane"), col=1:2, lty=1)
 abline(v=c(33,80,260,350), col="green", lwd=2)
 ```
-
 Pour cette analyse de la fréquentation des parcs, la même analyse a été effectuée que pour celle des commerces et loisirs.
 
 Lorsque l'on observe la fréquentation des parcs au début du premier confinement, on constate également un chute brutale mais d'amplitude moins élevée de celle des commerces non-essentiels et des loisirs. Cette diminution moins brutale peut être expliquée par le faite que contrairement aux commerces/loisirs, les parcs eux n'étaient pas fermés et constituaient un des rares loisirs en extérieurs encore accessible, les personnes ont donc pu continuer à s'y rendre sans restrictions, bien que toutes sorties non-essentielles étaient fortement déconseillées. 
@@ -155,14 +134,15 @@ Nous pouvons donc dire que ces augmentations et diminutions semblent suivre les 
 Les valeurs de la série passent sous la courbe rouge (représentant l'estimation de la tendance) pendant les deux confinements, ce qui traduit des valeurs temporairement en dessous de la tendance, c'est également le cas à partir de novembre 2021 (un peu avant 600 ème jour)
 
 
-```{r}
-# Comparaison des 2
+#### Comparaison des 2
 
-```
+Lorsque l'on regarde la corrélation entre ces 2 variables on s'apercoit qu'elles ont une corrélation positive moyenne de 0.57, cette corrélation est confirmée avec l'analyse en composante principales (ACP) grâce au graphique loadings. 
+Il n'est donc pas étonnant de voir plusieurs similitude entre ces 2 variables concernant l'influence qu'a eu le COVID19 
 
-Malgrès une faible corrélation (0.57) entre ces 2 variables
 
-# Analyse travail
+
+
+### Analyse travail
 ```{r Moussa travail}
 mobility_travail_ts <- ts(mobility$travail, start = c(2020, 46), frequency = 365)
 
@@ -187,7 +167,8 @@ La série de la composante filtrée montre que les déplacements augmentent mais
 
 Un élément est également nettement visible entre la période de confinement et de déconfinement : les fluctuations. Déjà présentes lors du confinement, l'amplitude de celles-ci sont moins marquées. La différence très contrastée se voit également dans la figure de l'autocorrélation de la série : l'autocorrélation est forte, mais bien plus importante au début de la série (2020) qu'à la fin (2022).
 
-
+### Analyses alimentation-pharmacies
+<<<<<<< HEAD
 ```{r #joy}
 mobility_grocery_pharma_ts <- ts(mobility$alimentation_pharmacies, start=2020, frequency=365)
 
@@ -204,11 +185,73 @@ abline(v=c(33,80,260,385), col="green", lwd=2)
 plot(mobility_grocery_pharma_median, stack=FALSE, resid=FALSE, col=1:2, leg=FALSE)
 legend(500,-50, c("série", "médiane"), col=1:2, lty=1)
 abline(v=c(33,80,260,385), col="green", lwd=2)
+```
+Concernant les trajets vers les commerces alimentaires et les pharmacies, on observe une chute brutale au démarrage du premier confinement, et une légère augmentation vers la fin du confinement. La fréquentation reste ensuite assez stable et le second confinement a un impact assez limité. Juste après la fin du second confinement, des valeurs plus élevées qui semblent correspondre à la situation avant confinements voir même plus sont observées.Les valeurs de la série passent sous la courbe rouge pendant le premier confinement, ce qui traduit des valeurs temporairement en dessous de la tendance, c'est beaucoup moins flagrant lors du second confinement.
+
+### Comparaison travail-alimentation/pharmacies
+
+Que ce soit pour les déplacements sur les lieux de travail ou vers les commerces alimentaires et pharmaceutiques, tous deux ont été impacté par la pandémie de Covid-19. En effet, lors du premier confinement (mars 2020) les deux ont subit une importante baisse. Lors du déconfinement progressif (mai 2020), les déplacement reprennent également progressivement en importance. Le second confinement à la fin de cette même année n'a eu que peu d'impact malgré des déplacements limités (mais moindre par rapport au premier).
+
+Quelques différences sont notables pour le travail. Même si les variations sont semblables, l'amplitude de ces dernières sont plus fortes. De plus, des baisses annuelles régulières sont observables après les deux confinements. Ces variations sembles cycliques et sont localisées aux mêmes périodes (vacances d'été et fêtes de fin d'année). 
+
+Dans l'ensemble, Ces deux composantes ont subit des effets semblables, même si pour les commerces pharmaceutiques et alimentaires, les variations étaient moins marquées, car leur services étaient tout de même plus accessibles malgré la limitation des déplacements lors du confinement. Il est important de préciser qu'en 2022, période de fin de l'observation, les déplacements sont redevenus tels qu'ils étaient avant le premier confinement, voire sont devenus plus importants.
+
+### Analyse de la mobilité résidentielle
+
+Cette section analyse l’évolution de la mobilité résidentielle. Contrairement aux autres catégories de mobilité (travail, commerces, loisirs, parcs), cette variable ne mesure pas des déplacements vers l’extérieur, mais constitue plutôt un indicateur du temps passé à domicile. Une augmentation de la mobilité résidentielle trace soit duit donc une réduction des déplacements hors domicile. Pour cette raison, et parce qu’elle reflète directement les mesures de confinement et de télétravail, la mobilité résidentielle est analysée séparément. 
+
+1. Évolution temporelle de la mobilité résidentielle  
+```{r}
+mobility_residence_ts <- ts(mobility$residence, start = c(2020, 46), frequency = 365)
+plot(mobility_residence_ts)
+```
+L’analyse de la série temporelle de la mobilité résidentielle met en évidence une augmentation très marquée du temps passé à domicile dès le début de la pandémie de COVID-19. Plus précisément, on observe un saut abrupt de la série autour du mois de mars 2020, correspondant à l’entrée en vigueur du premier confinement. Cette hausse soudaine traduit l’application de mesures sanitaires strictes, telles que la fermeture des écoles et commerces non essentiels, l’interdiction des déplacements non nécessaires et la généralisation du télétravail.  
+
+Durant cette première phase de confinement, la mobilité résidentielle atteint un niveau élevé et relativement stable, formant un plateau qui reflète le fait que la majorité de la population restait chez elle la plupart du temps. 
+
+À partir du déconfinement progressif du printemps et de l'été 2020, on observe une diminution graduelle de la mobilité résidentielle. Cette baisse traduit une reprise partielle des déplacements vers l'extérieur, notamment durant la période estivale. Toutefois, il est important de noter que cette diminution ne ramène pas la mobilité résidentielle à son niveau initial. Même en dehors des périodes de confinement strict, le temps passé à domicile reste supérieur à celui observé avant la pandémie, suggérant un changement durable des comportements.  
+
+À l'automne 2020, la série montre une nouvelle augmentation du temps passé à domicile, correspondant à la mise en place du second confinement. Bien que cette hausse soit généralement moins brutale que celle observée au printemps 2020, elle confirme que les restrictions sanitaires continuent d'avoir un impact direct sur les habitudes de vie. En fin de période d'étude, la mobilité résidentielle demeure globalement élevée par rapport aux niveaux pré-COVID, indiquant que les effets de la pandémie persistent au-delà des phases de confinement strict. 
+
+2. Tendance à long terme et structure de la série  
+
+```{r}
+mobility_residence_median <- tsd(mobility_residence_ts, method = "median", order = 180, times = 1)
+plot(mobility_residence_median, stack=FALSE, resid=FALSE, col=1:2, leg=FALSE)
+legend(500,-50, c("série", "médiane"), col=1:2, lty=1)
+abline(v=c(33,80,260,385), col="green", lwd=2)
+```
+Afin de mieux comprendre l’évolution sous-jacente de la mobilité résidentielle, une décomposition de la série temporelle a été réalisée à l’aide d’une approche par médianes mobiles. Cette méthode permet de distinguer la tendance à long terme, les fluctuations de court terme et les résidus.  
+
+La composante de tendance met clairement en évidence une hausse importante du temps passé à domicile en 2020, directement liée aux confinements successifs. Cette tendance augmente rapidement au moment du premier confinement, puis diminue partiellement lors des phases de déconfinement, sans toutefois revenir au niveau de référence initial. Par la suite, la tendance se stabilise à un niveau durablement plus élevé, ce qui suggère que certains changements de comportement, comme le télétravail ou la réduction des déplacements quotidiens, se maintiennent dans le temps. 
+
+La décomposition révèle également la présence de fluctuations régulières à court terme, principalement associées aux variations quotidiennes et hebdomadaires. Ces fluctuations sont visibles tout au long de la série, mais leur amplitude reste relativement faible comparée aux ruptures de tendance induites par les mesures sanitaires. Autrement dit, bien que la mobilité résidentielle varie naturellement d'un jour à l'autre, ces variations sont largement dominées par les effets structurels des confinements.  
+
+Les résidus ne montrent pas de structure particulière persistante à l'échelle visuelle, ce qui indique que la tendance extraite capture l'essentiel de l'information à long terme. Cette analyse confirme ainsi que l'évolution observée dans la série brute n'est pas uniquement due à des fluctuations aléatoires, mais reflète bien un changement profond et durable des comportements résidentiels. 
+
+3. Effets hebdomadaires et persistance temporelle  
+
+```{r}
+acf_residence <- acf(mobility_residence_ts)
+```
+L'étude de la fonction d'autocorrélation (ACF) de la série de mobilité résidentielle met en évidence une autocorrélation significative à un décalage de sept jours, ce qui correspond à un cycle hebdomadaire. Ce résultat est attendu, car les comportements résidentiels diffèrent généralement entre les jours de semaine et les week-ends, les individus passant en moyenne davantage de temps à domicile durant ces derniers.  
+
+En outre, l'ACF révèle une forte persistance temporelle, particulièrement durant les périodes de confinement. Pendant ces phases, les valeurs élevées de mobilité résidentielle se maintiennent sur plusieurs jours consécutifs, ce qui se traduit par des autocorrélations importantes pour des lags plus longs. Cette persistance reflète le caractère prolongé des restrictions sanitaires et l'impossibilité pour la population de reprendre rapidement des habitudes de mobilité normales. 
+
+Toutefois, bien que ces effets hebdomadaires soient statistiquement détectables, ils restent secondaires par rapport aux ruptures majeures induites par les confinements. L'évolution globale de la mobilité résidentielle est avant tout dictée par les décisions politiques et les mesures de santé publique, plutôt que par les variations cycliques habituelles. 
+
+Conclusion  
+
+L'analyse de la mobilité résidentielle montre que la pandémie de COVID-19 a eu un impact majeur et durable sur le temps passé à domicile. Les confinements successifs ont provoqué des augmentations abruptes et sans précédent de la mobilité résidentielle, tandis que les phases de déconfinement n'ont entraîné qu'un retour partiel vers la situation pré-pandémique. Cette variable apparaît ainsi comme un excellent indicateur synthétique de l'impact des mesures sanitaires.  
+
+Le maintien d'un niveau élevé de mobilité résidentielle en fin de période suggère que certains changements, tels que le télétravail ou la réduction des déplacements non essentiels, pourraient s'inscrire dans la durée. La mobilité résidentielle constitue donc un miroir inversé des autres formes de mobilité et offre un éclairage central sur les transformations des modes de vie induites par la pandémie.
+>>>>>>> 11fca9c0160005c05da91dfacea3417901243b9d
 
 
 ```
 Concernant les trajets vers les commerces alimentaires et les pharmacies, on observe une chute brutale au démarrage du premier confinement, et une légère augmentation vers la fin du confinement. La fréquentation reste ensuite assez stable et le second confinement a un impact assez limité. Juste après la fin du second confinement, des valeurs plus élevées qui semblent correspondre à la situation avant confinements voir même plus sont observées.Les valeurs de la série passent sous la courbe rouge pendant le premier confinement, ce qui traduit des valeurs temporairement en dessous de la tendance, c'est beaucoup moins flagrant lors du second confinement.
 
+<<<<<<< HEAD
 #Comparaison travail-alimentation/pharmacies
 
 Les analyses des déplacements au travail ou vers les commerces alimentaires et pharmaceutiques montrent une influence du confinement sur ces composantes. Lorsque le premier confinement a débuté en mars 2020, la diminution est nette. La mobilité vers ces lieux ne commencera à augmenter progressivement que lors de la phase lente de déconfinement en mai 2020. L'augmentation se maintiendra et ne faiblira presque pas lors du second confinement. 
@@ -219,6 +262,8 @@ Les déplacements vers les commerces alimentaires et les services pharmaceutique
 
 En somme, ces deux composantes ont subit des effets semblables par la pandémie mondiale de Covid-19. Les variations annuelles pour le travail semblent normales et n'impactent pas la reprise, tandis que pour l'alimentaire et le pharmaceutique, les déplacements restent réguliers à longueur d'année en post-confinement.  
 >>>>>>> 6d5d26abe2e9e14b56a43e0d07926ce929d2a1cd
+=======
+>>>>>>> 11fca9c0160005c05da91dfacea3417901243b9d
 ## Discussion et Conclusion
 
 <!--% En tenant compte du but de votre carnet de notes et de vos résultats, discutez de résultats et proposez des conclusions à votre analyse en 5 à 10 phrases. -->

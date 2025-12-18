@@ -1,6 +1,6 @@
 ---
 title: "Carnet de note : impact du covid-19 sur la mobilité en Wallonie"
-author: "Azizi Moussa, Dezutter Joy, Fernandez Dany, Fontaine Maréva"
+author: "Azizi Moussa, Dezutter Joy, Fernandes Dany, Fontaine Maréva"
 format:
   html:
     code-fold: true
