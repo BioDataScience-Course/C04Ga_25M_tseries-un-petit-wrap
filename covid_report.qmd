@@ -9,7 +9,7 @@ format:
 editor: visual
 lang: fr
 ---
-
+ 
 <!--# Ce travail doit faire entre 15 et 20 pages.-->
 
 <!--# Un rapport est différent d'un carnet de notes. Il ne s'agit donc pas de faire du copier-coller d'un document vers l'autre. Un rapport de synthèse doit être compréhensible sans devoir lire le carnet de notes. Le rapport de synthèse doit être  rédigé avec un style et une présentation adéquats. -->
