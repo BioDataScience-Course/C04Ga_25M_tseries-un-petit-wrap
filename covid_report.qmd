@@ -44,12 +44,7 @@ SciViews::R("ts", lang="fr")
 ```
 
 
-### Résumé des données
-```{r skim Maréva}
-skimr::skim(mobility)
-```
-
-### Modifications des données
+### Importation et modifications des données
 ```{r modif donnees}
 mobility <- read("data/mobility_wallonia.rds")
 mobility <- labelise(mobility,
@@ -72,17 +67,25 @@ mobility <- filter(mobility, date >="2020-02-15" & date <="2021-12-31")
 mobility
 ```
 
+### Résumé des données
+```{r skim Maréva}
+skimr::skim(mobility)
+```
+Tout d'abord, il nous faut noter que le 33ème jour après le 15 février 2020 (début de la série) correspond à la date du premier confinement (18 mars 2020), son déconfinement, lui, correspond au 80ème jour (4 mai 2020) et a duré +/- jusqu'au 138ème jour (1 juillet 2020). Le 261ème jour correspond au second confinement (2 novembre 2020) et son déconfinement a eu lieu aux alentours du 300ème jour (13 décembre) mais à continué progressivement jusqu'au 387ème jour (8 mars 2021). 
+A noter que les confinements et déconfinements ont été progressifs pour certains aspects, par exemple, certains commerces non-essentiels ont été obligés de fermer plus tôt que d'autres ou encore que certains employés n'ont pas su se mettre au télé-travail aussi vite que d'autres.
+
 ### Analyse globale série
 ```{r}
 # Corrélation 
 mob_cor <- correlation(mobility[, 2:7])
 tabularise(mob_cor, digits = 2)
 plot(mob_cor)
+
 ```
 Nous pouvons constater une corrélation assez forte entre la fréquentation des commerces/loisirs, des commerces d'alimentation/pharmacies et des arrêts de transports. Nous observons également une corrélation moyenne entre la fréquentation des arrêts de transports et des déplacements vers le travail. La variable Résidence n'est ici corrélée à aucune autre, en effet, tandis que les fréquentations des autres vont diminuer suite au COVID19, celles des lieux de résidences va augmenter suite aux mesures de confinement
 
 
-### Analyses et comparaison de la fréquentation des commerces non-essentiels et loisirs ainsi que des parcs
+### Analyses et comparaison de la fréquentation des commerces non-essentiels/loisirs et des parcs
 ```{r}
 #Analyse commerces, loisirs
 mob_com_ts <- ts(mobility$commerces_loisirs, start = c(2020,46), frequency=365)
@@ -92,8 +95,14 @@ plot(mob_com_median, col=1:3)
 
 plot(mob_com_median, stack=FALSE, resid=FALSE, col=1:2, leg=FALSE)
 legend(500,-50, c("série", "médiane"), col=1:2, lty=1)
-abline(v=c(33,80,260,385), col="green", lwd=2)
+abline(v=c(33,80,260,300), col="green", lwd=2)
 ```
+Afin de déterminer l'impact du COVID19 sur la fréquentation des commerces non-essentiels et des lieux de loisirs (restaurant, café, piscine, musée, cinéma, parc à thème,...), nous avons tout d'abord créé puis décomposé notre série temporelle via la méthode par médiane mobile, cela nous permet de visualiser notre série dans l'ensemble ainsi que d'obtenir un graphique (filtered) permettant de représenter la tendance de fond de la série. Nous avons également représenté les différents confinements et déconfinements à l'aide de barres verticales vertes (la 1ere représentant la 1er confinement, la 2eme représentant le 1er déconfinement, la 3ème représentant le second confinement et la 4ème le second déconfinement). 
+
+Lorsque l'on observe le graphique représentant l'évolution de la série, on aperçoit une diminution brutale de la fréquentation aux alentours du 30ème jour, cela correspondant au début du premier confinement et de la fermeture obligatoire de la majorité des commerces non-essentiels et des centres de loisirs, il y a ensuite une augmentation commencant aux alentour du 90ème jour qui correspond donc au déconfinement progressif de certains commerces non-essentiels ainsi que la réouverture de certains loisirs (piscine, musée, parcs à thème) progressivement. Cette augmentation continue jusqu'au 180ème jour et ensuite se stabilise jusqu'au 220ème jour +/-, cela correspond donc au moment où il n'y avait plus de confinement. Nous pouvons aussi noter que cette augmentation est aussi due au faite que cette période correspond aux mois de Juillet/Août (du 138ème jour au 199ème jour), les conditions météo ainsi que les vacances de nombreuses personnes combiné à la fin de ce premier confinement (envie de sortir de chez soi) ont sans aucun doute également un lien dans la fréquentation de ces lieux. 
+Une observe une légère rediminution commencant au 220ème jour juqu'au 250ème avant de de nouveau réaugmenter légèrement et de se stabiliser jusqu'au 400ème jour. Cette diminution hors période de confinement correspond à la mi-septembre et donc au retour au travail et aux écoles pour de nombreux individus ainsi que le retour d'une météo moins favorable pouvant elle aussi influencer le taux de fréquentation de certains loisirs (la piscine étant l'exemple le plus parlant). 
+Cependant, nous observons que l'augmentation se déroule assez tôt après l'annonce du second confinement, ce qui semble contre-intuitif par rapport à ce qui c'était lors du premier confinement. Il faut prendre en compte que lors de second confinement, les mesures n'étaient pas aussi strictes que lors du premier, en effet, il n'y avait pas d'interdiction totale de sortie et les fermetures étaient plus ciblées aussi. Nous pourions aussi interprèter cela en prenant en compte un "ras-le-bol" des personnes qui ne voulaient pas de nouveau s'enfermer chez eux et auraient donc pu vouloir faire une "dernière sortie" avant de vraiment respecter les mesures de confinement.
+
 
 ```{r}
 #Analyse parcs
@@ -114,6 +123,7 @@ abline(v=c(33,80,260,385), col="green", lwd=2)
 
 ```
 
+Malgrès une faible corrélation (0.57) entre ces 2 variables
 
 ## Discussion et Conclusion
 
