@@ -68,6 +68,50 @@ mobility<- rename(mobility,
   travail = "workplaces_percent_change_from_baseline",
   residence = "residential_percent_change_from_baseline")
 sdrop_na(mobility) -> mobility
+mobility <- filter(mobility, date >="2020-02-15" & date <="2021-12-31")
+mobility
+```
+
+### Analyse globale série
+```{r}
+# Corrélation 
+mob_cor <- correlation(mobility[, 2:7])
+tabularise(mob_cor, digits = 2)
+plot(mob_cor)
+```
+Nous pouvons constater une corrélation assez forte entre la fréquentation des commerces/loisirs, des commerces d'alimentation/pharmacies et des arrêts de transports. Nous observons également une corrélation moyenne entre la fréquentation des arrêts de transports et des déplacements vers le travail. La variable Résidence n'est ici corrélée à aucune autre, en effet, tandis que les fréquentations des autres vont diminuer suite au COVID19, celles des lieux de résidences va augmenter suite aux mesures de confinement
+
+
+### Analyses et comparaison de la fréquentation des commerces non-essentiels et loisirs ainsi que des parcs
+```{r}
+#Analyse commerces, loisirs
+mob_com_ts <- ts(mobility$commerces_loisirs, start = c(2020,46), frequency=365)
+
+mob_com_median <- tsd(mob_com_ts, method="median", order=180 ,times=1)
+plot(mob_com_median, col=1:3)
+
+plot(mob_com_median, stack=FALSE, resid=FALSE, col=1:2, leg=FALSE)
+legend(500,-50, c("série", "médiane"), col=1:2, lty=1)
+abline(v=c(33,80,260,385), col="green", lwd=2)
+```
+
+```{r}
+#Analyse parcs
+
+mob_parks_ts <- ts(mobility$parcs, start=2020, frequency=365)
+
+mob_parks_median <- tsd(mob_parks_ts, method="median", order=180 ,times=1)
+plot(mob_parks_median, col=1:4)
+
+plot(mob_parks_median, stack=FALSE, resid=FALSE, col=1:2, leg=FALSE)
+legend(450,0, c("série", "médiane"), col=1:2, lty=1)
+abline(v=c(33,80,260,385), col="green", lwd=2)
+```
+
+
+```{r}
+# Comparaison des 2
+
 ```
 
 
