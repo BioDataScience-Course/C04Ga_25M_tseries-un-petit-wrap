@@ -45,6 +45,7 @@ SciViews::R("ts", lang="fr")
 <!--% Ajoutez le nombre de chunks que vous souhaitez. Répartissez-vous le travail correctement. Structurez la section en partie avec des titres explicites de niveau trois.-->
 
 ### Modifications des données
+
 ```{r modif donnees}
 mobility <- read("data/mobility_wallonia.rds")
 mobility <- labelise(mobility,
@@ -70,22 +71,26 @@ mobility_tsbl
 ```
 
 ### Résumé des données
+
 ```{r skim Maréva}
 skimr::skim(mobility)
 ```
 
 ### Suppresion des données manquantes
+
 ```{r Maréva}
 sdrop_na(mobility) ->mobility
 ```
 
 ### Raccourcissement série
+
 ```{r}
 mobility <- filter(mobility, date >="2020-02-15" & date <="2021-12-31")
 mobility
 ```
 
 ### Conversion en série temporelle et analyses
+
 ```{r ts commerce,loisir Maréva}
 mobility_com_ts <- ts(mobility$commerces_loisirs, start = c(2020,46), frequency=365)
 plot(mobility_com_ts)
@@ -102,12 +107,12 @@ plot(mobility_com_median, stack=FALSE, resid=FALSE, col=1:2, leg=FALSE)
 legend(500,-50, c("série", "médiane"), col=1:2, lty=1)
 abline(v=c(33,80,260,385), col="green", lwd=2)
 ```
+
 Tout d'abord, il nous faut noter que le 33ème jour après le 15 février 2020 (début de la série) correspond au début premier confinement (18 mars 2020), son déconfinement progressif correspond au 80ème jour (4 mai 2020) et a duré +/- jusqu'au 138ème jour (1 juillet 2020). Le 261ème jour correspond au second confinement (2 novembre 2020) et son déconfinement a eu lieu au 387ème jour (8 mars 2021). A noter que les confinements et déconfinements ont été progressifs pour certains aspects, par exemple, les commerces non-essentiels ont d'abord étaient concernés alors que certains loisirs comme les cinémas ou piscines ont été impactés plus tard.
 
-Lorsque l'on observe le graphique de l'analyse par "médianes mobiles", on apercoit une diminution brutale de la fréquentation au alentour du 30ème jour, cela correspondant au début du premier confinement, il y a ensuite une augmentation du +/-90ème jour (suite au déconfinement) au 180ème jour qui se stabilise jusqu'au 220ème jour +/- avant de rediminuer légèrement juqu'au 250ème et de nouveau se stabiliser jusqu'au 400ème jour. On observe ensuite de nouveau une augmentation qui va rester assez stable jusqu'à la fin de la série. 
+Lorsque l'on observe le graphique de l'analyse par "médianes mobiles", on apercoit une diminution brutale de la fréquentation au alentour du 30ème jour, cela correspondant au début du premier confinement, il y a ensuite une augmentation du +/-90ème jour (suite au déconfinement) au 180ème jour qui se stabilise jusqu'au 220ème jour +/- avant de rediminuer légèrement juqu'au 250ème et de nouveau se stabiliser jusqu'au 400ème jour. On observe ensuite de nouveau une augmentation qui va rester assez stable jusqu'à la fin de la série.
 
-Lorsque l'on analyse l'influence du COVID-19 sur la fréquentations des commerces et loisirs, nous observons que la fréquentation subit une brusque diminution au début du confinement, une très légère augmentation lors de ce confinement, puis une augmentation plus marquée aux alentours du jour du déconfinement. 
-Cependant, nous observons une diminution de la fréquentation alors que le second confinement n'avait pas encore était mis en place, nous remarquons que cette diminution commence aux alentours de début Octobre, cela pourrait donc être dû au fait que les "beaux jours" disparaissent et aussi que les vacances sont finies, et donc moins de temps pour aller au cinéma, visiter un musée, aller à la piscine,...
+Lorsque l'on analyse l'influence du COVID-19 sur la fréquentations des commerces et loisirs, nous observons que la fréquentation subit une brusque diminution au début du confinement, une très légère augmentation lors de ce confinement, puis une augmentation plus marquée aux alentours du jour du déconfinement. Cependant, nous observons une diminution de la fréquentation alors que le second confinement n'avait pas encore était mis en place, nous remarquons que cette diminution commence aux alentours de début Octobre, cela pourrait donc être dû au fait que les "beaux jours" disparaissent et aussi que les vacances sont finies, et donc moins de temps pour aller au cinéma, visiter un musée, aller à la piscine,...
 
 ```{r ts commerce,loisir sans wk Maréva}
 # Copie de la série initiale sous une autre nom
@@ -135,6 +140,7 @@ abline(v=c(33,80,260,385), col="green", lwd=2)
 ```
 
 ### Conversion en série temporelle et analyses
+
 ```{r ts commerce,loisir 2 Maréva}
 mobility_com_moy <- tsd(mobility_com_ts, method="average", order=180 ,times=1)
 plot(mobility_com_moy, col=1:4)
@@ -143,7 +149,6 @@ plot(mobility_com_moy, stack=FALSE, resid=FALSE, col=1:2, leg=FALSE)
 legend(500,-50, c("série", "médiane"), col=1:2, lty=1)
 abline(v=c(33,80,260,385), col="green", lwd=2)
 ```
-
 
 ```{r #joy}
 mobility_grocery_pharma_ts <- ts(mobility$alimentation_pharmacies, start=2020, frequency=365)
@@ -165,6 +170,7 @@ abline(v=c(33,80,260,385), col="green", lwd=2)
 
 
 ```
+
 Concernant les trajets vers les commerces alimentaires et les pharmacies, on observe une chute brutale au démarrage du premier confinement, et une légère augmentation vers la fin du confinement. La fréquentation reste ensuite assez stable et le second confinement a un impact assez limité. Juste après la fin du second confinement, des valeurs plus élevées qui semblent correspondre à la situation avant confinements voir même plus sont observées.Les valeurs de la série passent sous la courbe rouge pendant le premier confinement, ce qui traduit des valeurs temporairement en dessous de la tendance, c'est beaucoup moins flagrant lors du second confinement.
 
 ```{r}
@@ -196,7 +202,6 @@ abline(v=c(15, 45, 75, 105, 135, 165, 195, 225, 255, 285, 315, 345, 375, 405, 43
 
 Concernant les parcs, on observe une chute brutale mais d'amplitude assez faible, suivie d'une augmentation, puis d'une diminution. Lors du second déconfinement la fréquentation reste assez stable, avant de réaugmenter et de rediminuer. Ces augmentations et diminutions semblent suivre les saison : les deux fois l'augmentation commence dès avril et la diminution vers début septembre. ( les barres verticales jaunes, une tout les 30 jours, représentent approximativement le début de chaque mois, la première correspondant au 1er mars 2020).Les valeurs de la série passent sous la courbe rouge pendant les deux confinements, ce qui traduit des valeurs temporairement en dessous de la tendance, c'est également le cas à partir de novembre 2021 (un peu avant 600 ème jour)
 
-
 ```{r}
 mobw[mobw$weekdays == "Saturday" | mobw$weekdays == "Sunday" , "parcs"] <- NA 
 
@@ -223,7 +228,9 @@ legend(500,-50, c("série", "médiane"), col=1:2, lty=1)
 abline(v=c(33,80,260,385), col="green", lwd=2)
 
 ```
+
 Les déplacements vers les arrêts de transports présentent une chute brutale au premier confinement, avant de réaugmenter progressivement. Une nouvelle diminution, cette fois plus faible et moins brusque que la première, est observée au début du second confinement. Les valeurs de la série passent sous la courbe rouge pendant les deux confinements, ce qui traduit des valeurs temporairement en dessous de la tendance.
+
 ```{r}
 mobw[mobw$weekdays == "Saturday" | mobw$weekdays == "Sunday" , "arrets_transports"] <- NA
 
@@ -249,13 +256,14 @@ legend(500,-50, c("série", "médiane"), col=1:2, lty=1)
 abline(v=c(33,80,260,385), col="green", lwd=2)
 
 ```
-Cette analyse se concentre sur les déplacements de la population allant travail hors de leur domicile. La série commence en 2020, l'année de la pandémie mondiale de coronavirus, ayant nécessité un confinement de la population à partir du 18 mars 2020. Lors de cette période, les déplacements en dehors du domicile étaient fortement limités, induisant donc à une baisse du déplacement pour le travail en dehors de celui-ci (majoritairement télétravail, ou activité professionnelle impossible). 
+
+Cette analyse se concentre sur les déplacements de la population allant travail hors de leur domicile. La série commence en 2020, l'année de la pandémie mondiale de coronavirus, ayant nécessité un confinement de la population à partir du 18 mars 2020. Lors de cette période, les déplacements en dehors du domicile étaient fortement limités, induisant donc à une baisse du déplacement pour le travail en dehors de celui-ci (majoritairement télétravail, ou activité professionnelle impossible).
 
 Cependant, sur la figure utilisant la méthode des médianes mobiles, une hausse est observable aux alentours de mai 2020, période où le déconfinement est progressif. Cette hausse au cours du temps est confirmée par la tendance générale, qui s'étend jusqu'en 2022. Cette augmentation progressive atteint une valeur maximale avant l'été 2021, avant de subir une rechute temporaire (courte) et de reprendre de l'importance aux alentour de septembre.
 
-La série de la composante filtrée montre que les déplacements augmentent mais de manière progressive. Quant aux résidus, les différences notables lors du début de la période d'étude renforce le fait d'une baisse suivie d'une hausse progressive, puis d'une constante. 
+La série de la composante filtrée montre que les déplacements augmentent mais de manière progressive. Quant aux résidus, les différences notables lors du début de la période d'étude renforce le fait d'une baisse suivie d'une hausse progressive, puis d'une constante.
 
-Un élément est également nettement visible entre la période de confinement et de déconfinement : les fluctuations. Déjà présentes lors du confinement, l'amplitude de celles-ci sont moins marquées. La différence très contrastée se voit également dans la figure de l'autocorrélation de la série : l'autocorrélation est forte, mais bien plus importante au début de la série (2020) qu'à la fin (2022). 
+Un élément est également nettement visible entre la période de confinement et de déconfinement : les fluctuations. Déjà présentes lors du confinement, l'amplitude de celles-ci sont moins marquées. La différence très contrastée se voit également dans la figure de l'autocorrélation de la série : l'autocorrélation est forte, mais bien plus importante au début de la série (2020) qu'à la fin (2022).
 
 ```{r Moussa travail sans wk}
 # Les données du week-end sont remplacées par des valeurs manquantes
@@ -267,11 +275,12 @@ plot(mobw_travail_ts)
 mobw_travail_ts2 <- aggregate(mobw_travail_ts, 52, FUN = collapse::fmean, ts.eps = 1/52)
 plot(mobw_travail_ts2)
 ```
+
 Puisque l'analyse précédente prenait les déplacements professionnels pour chaque jour de la semaine, incluant les week-end, il est donc normal d'observer des baisses sur 2 jours. Cette fois-ci, on se concentre sur la même étude mais en excluant les week-end.
 
-La baisse de mobilité au travail au début de l'année 2020 est causée par le confinement mondial, mais suite à la hausse, certaines baisses sont tout de même observables. Une fois la pandémie terminée et que les déplacements en dehors du domicile s'équilibre, il y a 2 baisses par an : au début/fin d'une année (fêtes de fin d'année), et une au milieu (vacances d'été). Même en excluant les week-end, les vacances subsistent et des baisses (légères) ont lieu tous les ans à différentes périodes, et ceux même en post pandémie. 
+La baisse de mobilité au travail au début de l'année 2020 est causée par le confinement mondial, mais suite à la hausse, certaines baisses sont tout de même observables. Une fois la pandémie terminée et que les déplacements en dehors du domicile s'équilibre, il y a 2 baisses par an : au début/fin d'une année (fêtes de fin d'année), et une au milieu (vacances d'été). Même en excluant les week-end, les vacances subsistent et des baisses (légères) ont lieu tous les ans à différentes périodes, et ceux même en post pandémie.
 
-En général, les reprises les plus importantes sont remarquables aux alentours de mars et de septembre, tandis que les valeurs les plus basses sont localisées autour de décembre et de juin. Il est tout de même important de préciser que ces valeurs les plus basses restent plus fortes que celles enregistrées pour l'année 2020 lors du confinement. Ce point montre à quel point la pandémie a eu plus d'impact sur la baisse de mobilité au travail que les vacances ou les week-end. 
+En général, les reprises les plus importantes sont remarquables aux alentours de mars et de septembre, tandis que les valeurs les plus basses sont localisées autour de décembre et de juin. Il est tout de même important de préciser que ces valeurs les plus basses restent plus fortes que celles enregistrées pour l'année 2020 lors du confinement. Ce point montre à quel point la pandémie a eu plus d'impact sur la baisse de mobilité au travail que les vacances ou les week-end.
 
 ```{r Dany résidence}
 mobility_residence_ts <- ts(mobility$residence, start = c(2020, 46), frequency = 365)
