@@ -29,7 +29,7 @@ Notre objectif est de déterminer l'impact du COVID-19 sur les déplacements des
 
 <!--% Cette section doit comprendre deux parties. La première partie doit expliciter le données employées et la seconde traiter des analyses réalisées et des logiciels employés.-->
 
-Les données sur la mobilité des communautés pendant le COVID-19 en Belgique proviennent de Google : <https://www.google.com/covid19/mobility/.> Ces données sont issues de l'historique de position des utilisateurs Google ayant activé cette fonction et ont été anonymisées.
+Les données sur la mobilité des communautés pendant le COVID-19 en Belgique proviennent de Google : <https://www.google.com/covid19/mobility/.>
 
 L'analyse est réalisée avec la [SciViews Box 2025](https://www.sciviews.org/software/svbox/) dans [Saturn Cloud](https://saturncloud.io) (Linux), utilisant le [logiciel R](https://www.r-project.org) (`r R.version.string`). Le package {pastecs} version `r packageVersion("pastecs")` est utilisé pour étudier la série temporelle.
 
@@ -43,24 +43,8 @@ if (!"tools:tests" %in% search())
 SciViews::R("ts", lang="fr")
 ```
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-### Résumé des données
-
-```{r skim Maréva}
-skimr::skim(mobility)
-```
-
-### Modifications des données
-
-=======
 
 ### Importation et modifications des données
->>>>>>> 6d5d26abe2e9e14b56a43e0d07926ce929d2a1cd
-=======
-### Importation et modifications des données
-
->>>>>>> 7f10054837fa72357e5cf71740c8aa2218d4ebf3
 ```{r modif donnees}
 mobility <- read("data/mobility_wallonia.rds")
 mobility <- labelise(mobility,
@@ -83,11 +67,7 @@ mobility <- filter(mobility, date >="2020-02-15" & date <="2021-12-31")
 mobility
 ```
 
-<<<<<<< HEAD
-=======
 ### Résumé des données
-
-
 ```{r skim Maréva}
 skimr::skim(mobility)
 ```
@@ -95,7 +75,6 @@ Tout d'abord, il nous faut noter que le 33ème jour après le 15 février 2020 (
 A noter que les confinements et déconfinements ont été progressifs pour certains aspects, par exemple, certains commerces non-essentiels ont été obligés de fermer plus tôt que d'autres ou encore que certains employés n'ont pas su se mettre au télé-travail aussi vite que d'autres.
 
 ### Analyse globale série
-
 ```{r}
 # Corrélation 
 mob_cor <- correlation(mobility[, 2:7])
@@ -103,13 +82,10 @@ tabularise(mob_cor, digits = 2)
 plot(mob_cor)
 
 ```
-
-
 Nous pouvons constater une corrélation assez forte entre la fréquentation des commerces/loisirs, des commerces d'alimentation/pharmacies et des arrêts de transports. Nous observons également une corrélation moyenne entre la fréquentation des arrêts de transports et des déplacements vers le travail. La variable Résidence n'est ici corrélée à aucune autre, en effet, tandis que les fréquentations des autres vont diminuer suite au COVID19, celles des lieux de résidences va augmenter suite aux mesures de confinement
 
+
 ### Analyses et comparaison de la fréquentation des commerces non-essentiels/loisirs et des parcs
-
-
 ```{r}
 #Analyse commerces, loisirs
 mob_com_ts <- ts(mobility$commerces_loisirs, start = c(2020,46), frequency=365)
@@ -121,7 +97,6 @@ plot(mob_com_median, stack=FALSE, resid=FALSE, col=1:2, leg=FALSE)
 legend(500,-50, c("série", "médiane"), col=1:2, lty=1)
 abline(v=c(33,80,260,350), col="green", lwd=2)
 ```
-
 Afin de déterminer l'impact du COVID19 sur la fréquentation des commerces non-essentiels et des lieux de loisirs (restaurant, café, piscine, musée, cinéma, parc à thème,...), nous avons tout d'abord créé puis décomposé notre série temporelle via la méthode par médiane mobile, cela nous permet de visualiser notre série dans l'ensemble ainsi que d'obtenir un graphique (filtered) permettant de représenter la tendance de fond de la série. Nous avons également représenté les différents confinements et déconfinements à l'aide de barres verticales vertes (la 1ere représentant la 1er confinement, la 2eme représentant le 1er déconfinement, la 3ème représentant le second confinement et la 4ème le second déconfinement). 
 
 Lorsque l'on observe le graphique représentant l'évolution de la série, on aperçoit une diminution brutale de la fréquentation aux alentours du 30ème jour, cela correspondant au début du premier confinement et de la fermeture obligatoire de la majorité des commerces non-essentiels et des centres de loisirs, il y a ensuite une augmentation commencant aux alentour du 90ème jour qui correspond donc au déconfinement progressif de certains commerces non-essentiels ainsi que la réouverture de certains loisirs (piscine, musée, parcs à thème) progressivement. Cette augmentation continue jusqu'au 180ème jour et ensuite se stabilise jusqu'au 220ème jour +/-, cela correspond donc au moment où il n'y avait plus de confinement. Nous pouvons aussi noter que cette augmentation est aussi due au faite que cette période correspond aux mois de Juillet/Août (du 138ème jour au 199ème jour), les conditions météo ainsi que les vacances de nombreuses personnes combiné à la fin de ce premier confinement (envie de sortir de chez soi) ont sans aucun doute également un lien dans la fréquentation de ces lieux. 
@@ -143,7 +118,6 @@ plot(mob_parks_median, stack=FALSE, resid=FALSE, col=1:2, leg=FALSE)
 legend(450,0, c("série", "médiane"), col=1:2, lty=1)
 abline(v=c(33,80,260,350), col="green", lwd=2)
 ```
-
 Pour cette analyse de la fréquentation des parcs, la même analyse a été effectuée que pour celle des commerces et loisirs.
 
 Lorsque l'on observe la fréquentation des parcs au début du premier confinement, on constate également un chute brutale mais d'amplitude moins élevée de celle des commerces non-essentiels et des loisirs. Cette diminution moins brutale peut être expliquée par le faite que contrairement aux commerces/loisirs, les parcs eux n'étaient pas fermés et constituaient un des rares loisirs en extérieurs encore accessible, les personnes ont donc pu continuer à s'y rendre sans restrictions, bien que toutes sorties non-essentielles étaient fortement déconseillées. 
@@ -239,7 +213,7 @@ L'analyse de la mobilité résidentielle montre que la pandémie de COVID-19 a e
 Le maintien d'un niveau élevé de mobilité résidentielle en fin de période suggère que certains changements, tels que le télétravail ou la réduction des déplacements non essentiels, pourraient s'inscrire dans la durée. La mobilité résidentielle constitue donc un miroir inversé des autres formes de mobilité et offre un éclairage central sur les transformations des modes de vie induites par la pandémie.
 
 
->>>>>>> 6d5d26abe2e9e14b56a43e0d07926ce929d2a1cd
+
 ## Discussion et Conclusion
 
 <!--% En tenant compte du but de votre carnet de notes et de vos résultats, discutez de résultats et proposez des conclusions à votre analyse en 5 à 10 phrases. -->
