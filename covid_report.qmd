@@ -188,9 +188,36 @@ La série de la composante filtrée montre que les déplacements augmentent mais
 Un élément est également nettement visible entre la période de confinement et de déconfinement : les fluctuations. Déjà présentes lors du confinement, l'amplitude de celles-ci sont moins marquées. La différence très contrastée se voit également dans la figure de l'autocorrélation de la série : l'autocorrélation est forte, mais bien plus importante au début de la série (2020) qu'à la fin (2022).
 
 
+```{r #joy}
+mobility_grocery_pharma_ts <- ts(mobility$alimentation_pharmacies, start=2020, frequency=365)
+
+acf_grocery_pharma <- acf(mobility_grocery_pharma_ts)
+
+mobility_grocery_pharma_trend <- trend.test(mobility_grocery_pharma_ts, R=999)
+plot(mobility_grocery_pharma_trend)
+abline(v=c(33,80,260,385), col="green", lwd=2)
+
+mobility_grocery_pharma_median <- tsd(mobility_grocery_pharma_ts, method="median", order=180 ,times=1)
+plot(mobility_grocery_pharma_median, col=1:4)
+abline(v=c(33,80,260,385), col="green", lwd=2)
+
+plot(mobility_grocery_pharma_median, stack=FALSE, resid=FALSE, col=1:2, leg=FALSE)
+legend(500,-50, c("série", "médiane"), col=1:2, lty=1)
+abline(v=c(33,80,260,385), col="green", lwd=2)
 
 
+```
+Concernant les trajets vers les commerces alimentaires et les pharmacies, on observe une chute brutale au démarrage du premier confinement, et une légère augmentation vers la fin du confinement. La fréquentation reste ensuite assez stable et le second confinement a un impact assez limité. Juste après la fin du second confinement, des valeurs plus élevées qui semblent correspondre à la situation avant confinements voir même plus sont observées.Les valeurs de la série passent sous la courbe rouge pendant le premier confinement, ce qui traduit des valeurs temporairement en dessous de la tendance, c'est beaucoup moins flagrant lors du second confinement.
 
+#Comparaison travail-alimentation/pharmacies
+
+Les analyses des déplacements au travail ou vers les commerces alimentaires et pharmaceutiques montrent une influence du confinement sur ces composantes. Lorsque le premier confinement a débuté en mars 2020, la diminution est nette. La mobilité vers ces lieux ne commencera à augmenter progressivement que lors de la phase lente de déconfinement en mai 2020. L'augmentation se maintiendra et ne faiblira presque pas lors du second confinement. 
+
+Les mêmes variations sont observées pour les déplacements de la population sur leur lieu de travail ou vers les pharmacies et commerces alimentaires. Cependant, quelques différences subsistent : les variations des déplacements professionnels sont marquées par une amplitude plus importante. De plus, de légères baisses sur certaines périodes de l'année sont observables à différentes périodes d'une année(vacances d'été et fêtes de fin d'année par exemple). Il existe donc une période cyclique plus marquée pour les déplacements professionnels. 
+
+Les déplacements vers les commerces alimentaires et les services pharmaceutiques se maintiennent davantage, les variations sont peu marquées après la fin du premier confinement. Même si les déplacements étaient limitées lors du second, les restrictions étaient moindre ce qui a aidé au maintien de l'activité de ces deux services. Lors de la fin de période de l'analyse (2022), les déplacements ont récupéré la même importance qu'avant le premier confinement, voire sont plus importants qu'avant. 
+
+En somme, ces deux composantes ont subit des effets semblables par la pandémie mondiale de Covid-19. Les variations annuelles pour le travail semblent normales et n'impactent pas la reprise, tandis que pour l'alimentaire et le pharmaceutique, les déplacements restent réguliers à longueur d'année en post-confinement.  
 >>>>>>> 6d5d26abe2e9e14b56a43e0d07926ce929d2a1cd
 ## Discussion et Conclusion
 
