@@ -188,7 +188,55 @@ La série de la composante filtrée montre que les déplacements augmentent mais
 Un élément est également nettement visible entre la période de confinement et de déconfinement : les fluctuations. Déjà présentes lors du confinement, l'amplitude de celles-ci sont moins marquées. La différence très contrastée se voit également dans la figure de l'autocorrélation de la série : l'autocorrélation est forte, mais bien plus importante au début de la série (2020) qu'à la fin (2022).
 
 
+### Analyse de la mobilité résidentielle
 
+Cette section analyse l’évolution de la mobilité résidentielle. Contrairement aux autres catégories de mobilité (travail, commerces, loisirs, parcs), cette variable ne mesure pas des déplacements vers l’extérieur, mais constitue plutôt un indicateur du temps passé à domicile. Une augmentation de la mobilité résidentielle traduit donc une réduction des déplacements hors domicile. Pour cette raison, et parce qu’elle reflète directement les mesures de confinement et de télétravail, la mobilité résidentielle est analysée séparément. 
+
+1. Évolution temporelle de la mobilité résidentielle  
+```{r}
+mobility_residence_ts <- ts(mobility$residence, start = c(2020, 46), frequency = 365)
+plot(mobility_residence_ts)
+```
+L’analyse de la série temporelle de la mobilité résidentielle met en évidence une augmentation très marquée du temps passé à domicile dès le début de la pandémie de COVID-19. Plus précisément, on observe un saut abrupt de la série autour du mois de mars 2020, correspondant à l’entrée en vigueur du premier confinement. Cette hausse soudaine traduit l’application de mesures sanitaires strictes, telles que la fermeture des écoles et commerces non essentiels, l’interdiction des déplacements non nécessaires et la généralisation du télétravail.  
+
+Durant cette première phase de confinement, la mobilité résidentielle atteint un niveau élevé et relativement stable, formant un plateau qui reflète le fait que la majorité de la population restait chez elle la plupart du temps. 
+
+À partir du déconfinement progressif du printemps et de l'été 2020, on observe une diminution graduelle de la mobilité résidentielle. Cette baisse traduit une reprise partielle des déplacements vers l'extérieur, notamment durant la période estivale. Toutefois, il est important de noter que cette diminution ne ramène pas la mobilité résidentielle à son niveau initial. Même en dehors des périodes de confinement strict, le temps passé à domicile reste supérieur à celui observé avant la pandémie, suggérant un changement durable des comportements.  
+
+À l'automne 2020, la série montre une nouvelle augmentation du temps passé à domicile, correspondant à la mise en place du second confinement. Bien que cette hausse soit généralement moins brutale que celle observée au printemps 2020, elle confirme que les restrictions sanitaires continuent d'avoir un impact direct sur les habitudes de vie. En fin de période d'étude, la mobilité résidentielle demeure globalement élevée par rapport aux niveaux pré-COVID, indiquant que les effets de la pandémie persistent au-delà des phases de confinement strict. 
+
+2. Tendance à long terme et structure de la série  
+
+```{r}
+mobility_residence_median <- tsd(mobility_residence_ts, method = "median", order = 180, times = 1)
+plot(mobility_residence_median, stack=FALSE, resid=FALSE, col=1:2, leg=FALSE)
+legend(500,-50, c("série", "médiane"), col=1:2, lty=1)
+abline(v=c(33,80,260,385), col="green", lwd=2)
+```
+Afin de mieux comprendre l’évolution sous-jacente de la mobilité résidentielle, une décomposition de la série temporelle a été réalisée à l’aide d’une approche par médianes mobiles. Cette méthode permet de distinguer la tendance à long terme, les fluctuations de court terme et les résidus.  
+
+La composante de tendance met clairement en évidence une hausse importante du temps passé à domicile en 2020, directement liée aux confinements successifs. Cette tendance augmente rapidement au moment du premier confinement, puis diminue partiellement lors des phases de déconfinement, sans toutefois revenir au niveau de référence initial. Par la suite, la tendance se stabilise à un niveau durablement plus élevé, ce qui suggère que certains changements de comportement, comme le télétravail ou la réduction des déplacements quotidiens, se maintiennent dans le temps. 
+
+La décomposition révèle également la présence de fluctuations régulières à court terme, principalement associées aux variations quotidiennes et hebdomadaires. Ces fluctuations sont visibles tout au long de la série, mais leur amplitude reste relativement faible comparée aux ruptures de tendance induites par les mesures sanitaires. Autrement dit, bien que la mobilité résidentielle varie naturellement d’un jour à l’autre, ces variations sont largement dominées par les effets structurels des confinements.  
+
+Les résidus ne montrent pas de structure particulière persistante à l’échelle visuelle, ce qui indique que la tendance extraite capture l’essentiel de l’information à long terme. Cette analyse confirme ainsi que l’évolution observée dans la série brute n’est pas uniquement due à des fluctuations aléatoires, mais reflète bien un changement profond et durable des comportements résidentiels. 
+
+3. Effets hebdomadaires et persistance temporelle  
+
+```{r}
+acf_residence <- acf(mobility_residence_ts)
+```
+L'étude de la fonction d'autocorrélation (ACF) de la série de mobilité résidentielle met en évidence une autocorrélation significative à un décalage de sept jours, ce qui correspond à un cycle hebdomadaire. Ce résultat est attendu, car les comportements résidentiels diffèrent généralement entre les jours de semaine et les week-ends, les individus passant en moyenne davantage de temps à domicile durant ces derniers.  
+
+En outre, l'ACF révèle une forte persistance temporelle, particulièrement durant les périodes de confinement. Pendant ces phases, les valeurs élevées de mobilité résidentielle se maintiennent sur plusieurs jours consécutifs, ce qui se traduit par des autocorrélations importantes pour des lags plus longs. Cette persistance reflète le caractère prolongé des restrictions sanitaires et l'impossibilité pour la population de reprendre rapidement des habitudes de mobilité normales. 
+
+Toutefois, bien que ces effets hebdomadaires soient statistiquement détectables, ils restent secondaires par rapport aux ruptures majeures induites par les confinements. L'évolution globale de la mobilité résidentielle est avant tout dictée par les décisions politiques et les mesures de santé publique, plutôt que par les variations cycliques habituelles. 
+
+Conclusion  
+
+L'analyse de la mobilité résidentielle montre que la pandémie de COVID-19 a eu un impact majeur et durable sur le temps passé à domicile. Les confinements successifs ont provoqué des augmentations abruptes et sans précédent de la mobilité résidentielle, tandis que les phases de déconfinement n'ont entraîné qu'un retour partiel vers la situation pré-pandémique. Cette variable apparaît ainsi comme un excellent indicateur synthétique de l'impact des mesures sanitaires.  
+
+Le maintien d'un niveau élevé de mobilité résidentielle en fin de période suggère que certains changements, tels que le télétravail ou la réduction des déplacements non essentiels, pourraient s'inscrire dans la durée. La mobilité résidentielle constitue donc un miroir inversé des autres formes de mobilité et offre un éclairage central sur les transformations des modes de vie induites par la pandémie.
 
 
 >>>>>>> 6d5d26abe2e9e14b56a43e0d07926ce929d2a1cd
