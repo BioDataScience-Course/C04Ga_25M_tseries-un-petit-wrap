@@ -94,7 +94,7 @@ Nous pouvons constater une corrélation assez forte entre la fréquentation des 
 
 ### Analyses et comparaison de la fréquentation des commerces non-essentiels/loisirs et des parcs
 
-####Analyse des commerces non-essentiels et des centres de loisirs
+**Analyse des commerces non-essentiels et des centres de loisirs**
 
 ```{r}
 mob_com_ts <- ts(mobility$commerces_loisirs, start = c(2020,46), frequency=365)
@@ -111,7 +111,7 @@ Lorsque l'on observe l'évolution de la série, on aperçoit une diminution brut
 
 Les valeurs de cette série passent sous la courbe rouge (représentant l'estimation de la tendance) lors des 2 confinements, cela indiquant que les taux de fréquentation sont en dessous de la moyenne. On peut également constater que ces taux de fréquentation prennent plus de temps à revenir au "taux attendu" (courbe rouge donc), montrant bien que les réouvertures ont été progressives au cours du temps.
 
-####Analyse des parcs
+**Analyse des parcs**
 
 ```{r}
 mob_parks_ts <- ts(mobility$parcs, start=2020, frequency=365)
@@ -127,7 +127,7 @@ Lorsque l'on observe la fréquentation des parcs au début du premier confinemen
 
 Nous pouvons donc dire que ces augmentations et diminutions semblent suivre les saisons : à deux reprises, l'augmentation commence dès avril et la diminution vers fin-août/début septembre. Les valeurs de la série passent sous la courbe rouge (représentant l'estimation de la tendance) pendant les deux confinements, ce qui traduit des valeurs temporairement en dessous de la tendance, c'est également le cas à partir de novembre 2021 (un peu avant 600ème jour)
 
-#### Comparaison des 2
+**Comparaison des 2**
 
 Lorsque l'on regarde la corrélation entre ces 2 variables on s'apercoit qu'elles ont une corrélation positive moyenne de 0.57, cette corrélation est confirmée avec l'analyse en composante principales (ACP) grâce au graphique loadings. Il n'est donc pas étonnant de voir plusieurs similitude entre ces 2 variables concernant l'influence qu'a eu le COVID19 sur la fréquentation. Pour les 2, on observe une chute brutale (surtout pour les commerces non-essentiels et lieux de loisirs) de la fréquentation au début du premier confinement qui restera stable avant de réaugmenter vers la fin de celui-ci. Entre la fin du premier confinement et le début du second confinement, un pic de fréquentation est observé aux alentours de mi-août. Suite à ce pic, il est important de noter que d'autres facteurs que le COVID19 et les confinements ont aussi un rôle important dans la fréquentation de ces lieu, en effet, les sorties aux parcs se font plus facilement lorsqu'il fait bon et on aura donc plus de fréquentation des parcs en été plutôt qu'en hiver. La même logique peut s'appliquer à certains commerces/loisirs tel que les sorties à la piscine ou dans des parcs à thème. Un autre facteur pouvant influencer leurs fréquentation est la disponibilité des personnes, il est plus facile d'aller passer une journée aux parcs, d'aller visiter un musée ou encore d'aller boire un verre en café lorsque nous sommes en vacances (enfants comme adultes). Des facteurs tel que la météo et les vacances sont importants à prendre en compte. A l'arrivé du second confinement, on constate de nouveau une chute des fréquentations pour les commerces non-essentiels mais celle-ci est nettement moins brutale que la première, cela pouvant être expliqué par des mesures plus souples comparés au premier confinement, certains magasins non-essentiels ayant pu rester ouvert. Pour les parcs, on remarque qu'une chute des fréquentations a lieu peu avant le second confinement, cela correspondant au début septembre et donc la reprise du travail et des écoles ainsi que l'arrivée d'une météo plus froide. Et lors du début du second confinement, on constate que la fréquentation des parcs ne varie pas beaucoup comparé au premier confinement, la météo ayant peut-être disuadé plusieurs personnes de sortir.
 
@@ -183,7 +183,7 @@ Dans l'ensemble, Ces deux composantes ont subit des effets semblables, même si 
 
 Cette section analyse l’évolution de la mobilité résidentielle. Contrairement aux autres catégories de mobilité (travail, commerces, loisirs, parcs), cette variable ne mesure pas des déplacements vers l’extérieur, mais constitue plutôt un indicateur du temps passé à domicile. Une augmentation de la mobilité résidentielle trace soit duit donc une réduction des déplacements hors domicile. Pour cette raison, et parce qu’elle reflète directement les mesures de confinement et de télétravail, la mobilité résidentielle est analysée séparément.
 
-####Évolution temporelle de la mobilité résidentielle
+**Évolution temporelle de la mobilité résidentielle**
 
 ```{r}
 mobility_residence_ts <- ts(mobility$residence, start = c(2020, 46), frequency = 365)
@@ -196,7 +196,7 @@ Durant cette première phase de confinement, la mobilité résidentielle atteint
 À partir du déconfinement progressif du printemps et de l'été 2020, on observe une diminution graduelle de la mobilité résidentielle. Cette baisse traduit une reprise partielle des déplacements vers l'extérieur, notamment durant la période estivale. Toutefois, il est important de noter que cette diminution ne ramène pas la mobilité résidentielle à son niveau initial. Même en dehors des périodes de confinement strict, le temps passé à domicile reste supérieur à celui observé avant la pandémie, suggérant un changement durable des comportements.
 À l'automne 2020, la série montre une nouvelle augmentation du temps passé à domicile, correspondant à la mise en place du second confinement. Bien que cette hausse soit généralement moins brutale que celle observée au printemps 2020, elle confirme que les restrictions sanitaires continuent d'avoir un impact direct sur les habitudes de vie. En fin de période d'étude, la mobilité résidentielle demeure globalement élevée par rapport aux niveaux pré-COVID, indiquant que les effets de la pandémie persistent au-delà des phases de confinement strict.
 
-####Tendance à long terme et structure de la série
+**Tendance à long terme et structure de la série**
 
 ```{r}
 mobility_residence_median <- tsd(mobility_residence_ts, method = "median", order = 180, times = 1)
@@ -213,7 +213,7 @@ La décomposition révèle également la présence de fluctuations régulières 
 
 Les résidus ne montrent pas de structure particulière persistante à l'échelle visuelle, ce qui indique que la tendance extraite capture l'essentiel de l'information à long terme. Cette analyse confirme ainsi que l'évolution observée dans la série brute n'est pas uniquement due à des fluctuations aléatoires, mais reflète bien un changement profond et durable des comportements résidentiels.
 
-####Effets hebdomadaires et persistance temporelle
+**Effets hebdomadaires et persistance temporelle**
 
 ```{r}
 acf_residence <- acf(mobility_residence_ts, xlab = "Retard/Lag [jours]", ylab = "Autocorrélation", main = "ACF de la mobilité résidentielle")
