@@ -17,13 +17,13 @@ lang: fr
 
 <!--% Rédigez l'introduction de ce rapport.-->
 
-Google répertorie les données sur la mobilité des communautés pendant le COVID-19 (elles ne sont plus répertoriés depuis le 15/10/2022), celles-ci sont disponibles ici : https://www.google.com/covid19/mobility/ Nous allons analyser ces données en nous concentrant sur les années 2020 et 2021, l'année 2020 ayant été fortement impactée au niveau économique notamment due aux règles au niveau des déplacements et l'année 2021 également mais ayant subit des mesures moins "strictes".
+Google a publié des rapports de mobilité communautaire pendant la pandémie de COVID-19, fournissant des données agrégées sur les déplacements par catégorie de lieux (par exemple : commerces et loisirs, magasins d'alimentation et pharmacies, parcs, transports en commun, lieux de travail, zones résidentielles). Ces rapports officiels ne sont plus mis à jour depuis le 15 octobre 2022, mais les données historiques restent accessibles au public. Dans cette étude, nous exploitons ces données pour la Wallonie en nous concentrant sur les années 2020 et 2021. En effet, l'année 2020 a été fortement affectée par la pandémie, notamment sur le plan économique et social, en raison de mesures de confinement très strictes, tandis que 2021 a connu un certain assouplissement des restrictions (grâce, entre autres, aux premières campagnes de vaccination) malgré la persistance du virus. Comparer ces deux années permettra d'illustrer l'impact immédiat de la crise sanitaire et son évolution sur les comportements de mobilité dans la région.
 
 ## But
 
 <!--% Rédigez le but de ce rapport.-->
 
-Notre objectif est de déterminer l'impact du COVID-19 sur les déplacements des Wallons, pour ce faire nous allons analyser l'évolution de la fréquentation de lieux au cours du temps et également par catégorie (commerces, pharmacies, parcs, lieux de travail,...)
+Notre objectif est de déterminer l'impact de la pandémie de COVID-19 sur la mobilité des Wallons, en analysant l'évolution de la fréquentation des différents types de lieux au cours de la période 2020-2021. Concrètement, il s'agit d'examiner comment les catégories d'endroits telles que les lieux de travail, les commerces, les parcs, les transports en commun ou encore les zones résidentielles ont vu leur fréquentation varier pendant les phases aiguës de la pandémie. Cette analyse mettra en évidence quels aspects de la vie quotidienne ont été les plus affectés par les restrictions sanitaires, fournissant ainsi un éclairage quantitatif sur l'ampleur des changements de comportement de déplacement en Wallonie.
 
 ## Matériel et méthodes
 
