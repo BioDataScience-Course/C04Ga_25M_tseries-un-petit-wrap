@@ -31,8 +31,7 @@ Notre objectif est de déterminer l'impact de la pandémie de COVID-19 sur la mo
 <!--% Cette section doit comprendre deux parties. La première partie doit expliciter le données employées et la seconde traiter des analyses réalisées et des logiciels employés.-->
 
 Les données sur la mobilité des communautés pendant le COVID-19 en Belgique proviennent de Google : <https://www.google.com/covid19/mobility/.> .Ces données sont issues de l'historique de position des utilisateurs Google ayant activé cette fonction et ont été anonymisées.
-
-L'analyse est réalisée avec la \[SciViewsBox2025\] (https://www.sciviews.org/software/svbox/) dans [Saturn Cloud](https://saturncloud.io) (Linux), utilisant le [logiciel R](https://www.r-project.org) (`r R.version.string`). Le package {pastecs} version `r packageVersion("pastecs")` est utilisé pour étudier la série temporelle.
+L'analyse est réalisée avec la [SciViewsBox2025] (https://www.sciviews.org/software/svbox/) dans [Saturn Cloud](https://saturncloud.io) (Linux), utilisant le [logiciel R](https://www.r-project.org) (`r R.version.string`). Le package {pastecs} version `r packageVersion("pastecs")` est utilisé pour étudier la série temporelle.
 
 ## Résultats
 
@@ -72,7 +71,7 @@ mobility
 
 ### Résumé des données
 
-```{r skim Maréva}
+```{r skim}
 skimr::skim(mobility)
 ```
 
@@ -100,10 +99,8 @@ Nous pouvons constater une corrélation assez forte entre la fréquentation des 
 
 ```{r}
 mob_com_ts <- ts(mobility$commerces_loisirs, start = c(2020,46), frequency=365)
-
 mob_com_median <- tsd(mob_com_ts, method="median", order=180 ,times=1)
 plot(mob_com_median, col=1:3)
-
 plot(mob_com_median, stack=FALSE, resid=FALSE, col=1:2, leg=FALSE)
 legend(500,-50, c("série", "médiane"), col=1:2, lty=1)
 abline(v=c(33,80,260,350), col="green", lwd=2)
@@ -111,7 +108,7 @@ abline(v=c(33,80,260,350), col="green", lwd=2)
 
 Afin de déterminer l'impact du COVID19 sur la fréquentation des commerces non-essentiels et des lieux de loisirs (restaurant, café, piscine, musée, cinéma, parc à thème,...), nous avons tout d'abord créé puis décomposé notre série temporelle via la méthode par médiane mobile, cela nous permet de visualiser notre série dans l'ensemble ainsi que d'obtenir un graphique (filtered) permettant de représenter la tendance de fond de la série. Nous avons également représenté les différents confinements et déconfinements à l'aide de barres verticales vertes (la 1ere représentant la 1er confinement, la 2eme représentant le 1er déconfinement, la 3ème représentant le second confinement et la 4ème le second déconfinement).
 
-Lorsque l'on observe le graphique représentant l'évolution de la série, on aperçoit une diminution brutale de la fréquentation aux alentours du 30ème jour, cela correspondant au début du premier confinement et de la fermeture obligatoire de la majorité des commerces non-essentiels et des centres de loisirs, il y a ensuite une augmentation commencant aux alentour du 90ème jour qui correspond donc au déconfinement progressif de certains commerces non-essentiels ainsi que la réouverture de certains loisirs (piscine, musée, parcs à thème) progressivement. Cette augmentation continue jusqu'au 180ème jour et ensuite se stabilise jusqu'au 220ème jour +/-, cela correspond donc au moment où il n'y avait plus de confinement. Nous pouvons aussi noter que cette augmentation est aussi due au faite que cette période correspond aux mois de Juillet/Août (du 138ème jour au 199ème jour), les conditions météo ainsi que les vacances de nombreuses personnes combiné à la fin de ce premier confinement (envie de sortir de chez soi) ont sans aucun doute également un lien dans la fréquentation de ces lieux. Une observe une légère rediminution commencant au 220ème jour juqu'au 250ème avant de de nouveau réaugmenter légèrement et de se stabiliser jusqu'au 400ème jour. Cette diminution hors période de confinement correspond à la mi-septembre et donc au retour au travail et aux écoles pour de nombreux individus ainsi que le retour d'une météo moins favorable pouvant elle aussi influencer le taux de fréquentation de certains loisirs (la piscine étant l'exemple le plus parlant). Cependant, nous observons que l'augmentation se déroule assez tôt après l'annonce du second confinement, ce qui semble contre-intuitif par rapport à ce qui c'était lors du premier confinement. Il faut prendre en compte que lors de second confinement, les mesures n'étaient pas aussi strictes que lors du premier, en effet, il n'y avait pas d'interdiction totale de sortie et les fermetures étaient plus ciblées aussi. Nous pourions aussi interprèter cela en prenant en compte un "ras-le-bol" des personnes qui ne voulaient pas de nouveau s'enfermer chez eux et auraient donc pu vouloir faire une "dernière sortie" avant de vraiment respecter les mesures de confinement.
+Lorsque l'on observe l'évolution de la série, on aperçoit une diminution brutale de la fréquentation aux alentours du 30ème jour, cela correspondant au début du premier confinement et de la fermeture obligatoire de la majorité des commerces non-essentiels et des centres de loisirs, il y a ensuite une augmentation commencant aux alentours du 90ème jour et qui correspond donc au déconfinement progressif de certains commerces non-essentiels ainsi que de la réouverture progressive de certains loisirs (piscine, musée, parcs à thème). Cette augmentation continue jusqu'au 180ème jour et ensuite se stabilise jusqu'au 220ème jour, moment où il n'y avait plus de confinement. Nous pouvons aussi noter que cette augmentation est aussi due au faite que la période correspond aux mois de Juillet/Août (du 138ème jour au 199ème jour), les conditions météo ainsi que les vacances de nombreuses personnes combinés à la fin de ce premier confinement (envie de sortir de chez soi) ont sans aucun doute également un lien dans la fréquentation de ces lieux. On observe une légère rediminution du 220ème jour juqu'au 250ème avant de de nouveau réaugmenter légèrement et se stabiliser jusqu'au 400ème jour. Cette diminution hors période de confinement correspond à la mi-septembre et donc au retour au travail et aux écoles pour de nombreux individus ainsi que le retour d'une météo moins favorable pouvant elle aussi influencer le taux de fréquentation de certains loisirs (la piscine étant l'exemple le plus parlant). Cependant, nous observons que l'augmentation se déroule assez tôt après l'annonce du second confinement, ce qui semble contre-intuitif par rapport à ce qui c'était lors du premier confinement. Il faut prendre en compte que lors de second confinement, les mesures n'étaient pas aussi strictes que lors du premier, en effet, il n'y avait pas d'interdiction totale de sortie et les fermetures étaient plus ciblées aussi.
 
 Les valeurs de cette série passent sous la courbe rouge (représentant l'estimation de la tendance) lors des 2 confinements, cela indiquant que les taux de fréquentation sont en dessous de la moyenne. On peut également constater que ces taux de fréquentation prennent plus de temps à revenir au "taux attendu" (courbe rouge donc), montrant bien que les réouvertures ont été progressives au cours du temps.
 
@@ -119,20 +116,17 @@ Les valeurs de cette série passent sous la courbe rouge (représentant l'estima
 
 ```{r}
 mob_parks_ts <- ts(mobility$parcs, start=2020, frequency=365)
-
 mob_parks_median <- tsd(mob_parks_ts, method="median", order=180 ,times=1)
 plot(mob_parks_median, col=1:4)
-
 plot(mob_parks_median, stack=FALSE, resid=FALSE, col=1:2, leg=FALSE)
 legend(450,0, c("série", "médiane"), col=1:2, lty=1)
 abline(v=c(33,80,260,350), col="green", lwd=2)
 ```
 
 Pour cette analyse de la fréquentation des parcs, la même analyse a été effectuée que pour celle des commerces et loisirs.
+Lorsque l'on observe la fréquentation des parcs au début du premier confinement, on constate également un chute brutale mais d'amplitude moins élevée de celle des commerces non-essentiels et des loisirs. Cette diminution moins brutale peut être expliquée par le faite que contrairement aux commerces/loisirs, les parcs eux n'étaient pas fermés et constituaient un des rares loisirs en extérieurs encore accessible, les personnes ont donc pu continuer à s'y rendre sans restrictions, bien que toutes sorties non-essentielles étaient fortement déconseillées. A la fin du premier confinement, une augmentation d'une très grande amplitude avec un pic est observée. Cela étant corrélé avec "l'arrivée des beaux jours", les vacances d'été et bien sûr une envie de sortir dehors après plusieurs jours enfermés chez soi. Aux alentours du 180ème jour, une diminution de la fréquentation est observée et se stabilise au +/- 220ème jour, ce jour correspondant au début du mois de septembre et donc au retour au travail et aux écoles de plusieurs personnes ainsi qu'un début de météo moins estivale. Lors du second confinement, on observe que la fréquentation reste assez stable, avant de réaugmenter à la fin de celui-ci et de rediminuer en fin de série. Ce dernier pic visible aux alentours du 550ème jour correspondant de nouveau aux vacances d'été (mi-août), montrant bien l'importance des facteurs "vacances" et "météo" pour la fréquentation des parcs.
 
-Lorsque l'on observe la fréquentation des parcs au début du premier confinement, on constate également un chute brutale mais d'amplitude moins élevée de celle des commerces non-essentiels et des loisirs. Cette diminution moins brutale peut être expliquée par le faite que contrairement aux commerces/loisirs, les parcs eux n'étaient pas fermés et constituaient un des rares loisirs en extérieurs encore accessible, les personnes ont donc pu continuer à s'y rendre sans restrictions, bien que toutes sorties non-essentielles étaient fortement déconseillées. A la fin du premier confinement, une augmentation d'une très grande amplitude avec un est observée. Cela étant corrélé avec "l'arrivée des beaux jours", les vacances d'été et bien sûr une envie de sortir dehors après plusieurs jours enfermés chez soi. Aux alentours du 180ème jour, une diminution de la fréquentation est observée et se stabilise au +/- 220ème jour, ce jour correspondant au début du mois de septembre et donc au retour au travail et aux écoles de plusieurs personnes ainsi qu'un début de météo moins estivale. Lors du second confinement, on observe que la fréquentation reste assez stable, avant de réaugmenter à la fin de celui-ci et de rediminuer en fin de série. Ce dernier pic visible aux alentours du 550ème jour correspondant de nouveau aux vacances d'été (mi-août), montrant bien l'importance des facteurs "vacances" et "météo" pour la fréquentation des parcs.
-
-Nous pouvons donc dire que ces augmentations et diminutions semblent suivre les saisons : à deux reprises, l'augmentation commence dès avril et la diminution vers fin-août/début septembre. Les valeurs de la série passent sous la courbe rouge (représentant l'estimation de la tendance) pendant les deux confinements, ce qui traduit des valeurs temporairement en dessous de la tendance, c'est également le cas à partir de novembre 2021 (un peu avant 600 ème jour)
+Nous pouvons donc dire que ces augmentations et diminutions semblent suivre les saisons : à deux reprises, l'augmentation commence dès avril et la diminution vers fin-août/début septembre. Les valeurs de la série passent sous la courbe rouge (représentant l'estimation de la tendance) pendant les deux confinements, ce qui traduit des valeurs temporairement en dessous de la tendance, c'est également le cas à partir de novembre 2021 (un peu avant 600ème jour)
 
 #### Comparaison des 2
 
@@ -140,7 +134,7 @@ Lorsque l'on regarde la corrélation entre ces 2 variables on s'apercoit qu'elle
 
 ### Analyse travail
 
-```{r Moussa travail}
+```{r}
 mobility_travail_ts <- ts(mobility$travail, start = c(2020, 46), frequency = 365)
 
 acf_travail <- acf(mobility_travail_ts)
@@ -158,28 +152,21 @@ abline(v=c(33,80,260,385), col="green", lwd=2)
 ```
 
 Cette analyse se concentre sur les déplacements de la population allant travail hors de leur domicile. La série commence en 2020, l'année de la pandémie mondiale de coronavirus, ayant nécessité un confinement de la population à partir du 18 mars 2020. Lors de cette période, les déplacements en dehors du domicile étaient fortement limités, induisant donc à une baisse du déplacement pour le travail en dehors de celui-ci (majoritairement télétravail, ou activité professionnelle impossible).
-
 Cependant, sur la figure utilisant la méthode des médianes mobiles, une hausse est observable aux alentours de mai 2020, période où le déconfinement est progressif. Cette hausse au cours du temps est confirmée par la tendance générale, qui s'étend jusqu'en 2022. Cette augmentation progressive atteint une valeur maximale avant l'été 2021, avant de subir une rechute temporaire (courte) et de reprendre de l'importance aux alentour de septembre.
-
 La série de la composante filtrée montre que les déplacements augmentent mais de manière progressive. Quant aux résidus, les différences notables lors du début de la période d'étude renforce le fait d'une baisse suivie d'une hausse progressive, puis d'une constante.
-
 Un élément est également nettement visible entre la période de confinement et de déconfinement : les fluctuations. Déjà présentes lors du confinement, l'amplitude de celles-ci sont moins marquées. La différence très contrastée se voit également dans la figure de l'autocorrélation de la série : l'autocorrélation est forte, mais bien plus importante au début de la série (2020) qu'à la fin (2022).
 
 ### Analyses alimentation-pharmacies
 
-```{r joy}
+```{r}
 mobility_grocery_pharma_ts <- ts(mobility$alimentation_pharmacies, start=2020, frequency=365)
-
 acf_grocery_pharma <- acf(mobility_grocery_pharma_ts)
-
 mobility_grocery_pharma_trend <- trend.test(mobility_grocery_pharma_ts, R=999)
 plot(mobility_grocery_pharma_trend)
 abline(v=c(33,80,260,385), col="green", lwd=2)
-
 mobility_grocery_pharma_median <- tsd(mobility_grocery_pharma_ts, method="median", order=180 ,times=1)
 plot(mobility_grocery_pharma_median, col=1:4)
 abline(v=c(33,80,260,385), col="green", lwd=2)
-
 plot(mobility_grocery_pharma_median, stack=FALSE, resid=FALSE, col=1:2, leg=FALSE)
 legend(500,-50, c("série", "médiane"), col=1:2, lty=1)
 abline(v=c(33,80,260,385), col="green", lwd=2)
@@ -190,9 +177,7 @@ Concernant les trajets vers les commerces alimentaires et les pharmacies, on obs
 ### Comparaison travail-alimentation/pharmacies
 
 Que ce soit pour les déplacements sur les lieux de travail ou vers les commerces alimentaires et pharmaceutiques, tous deux ont été impacté par la pandémie de Covid-19. En effet, lors du premier confinement (mars 2020) les deux ont subit une importante baisse. Lors du déconfinement progressif (mai 2020), les déplacement reprennent également progressivement en importance. Le second confinement à la fin de cette même année n'a eu que peu d'impact malgré des déplacements limités (mais moindre par rapport au premier).
-
 Quelques différences sont notables pour le travail. Même si les variations sont semblables, l'amplitude de ces dernières sont plus fortes. De plus, des baisses annuelles régulières sont observables après les deux confinements. Ces variations sembles cycliques et sont localisées aux mêmes périodes (vacances d'été et fêtes de fin d'année).
-
 Dans l'ensemble, Ces deux composantes ont subit des effets semblables, même si pour les commerces pharmaceutiques et alimentaires, les variations étaient moins marquées, car leur services étaient tout de même plus accessibles malgré la limitation des déplacements lors du confinement. Il est important de préciser qu'en 2022, période de fin de l'observation, les déplacements sont redevenus tels qu'ils étaient avant le premier confinement, voire sont devenus plus importants.
 
 ### Analyse de la mobilité résidentielle
@@ -209,9 +194,7 @@ plot(mobility_residence_ts, xlab = "Temps [années]", ylab = "Variation du temps
 L’analyse de la série temporelle de la mobilité résidentielle met en évidence une augmentation très marquée du temps passé à domicile dès le début de la pandémie de COVID-19. Plus précisément, on observe un saut abrupt de la série autour du mois de mars 2020, correspondant à l’entrée en vigueur du premier confinement. Cette hausse soudaine traduit l’application de mesures sanitaires strictes, telles que la fermeture des écoles et commerces non essentiels, l’interdiction des déplacements non nécessaires et la généralisation du télétravail.
 
 Durant cette première phase de confinement, la mobilité résidentielle atteint un niveau élevé et relativement stable, formant un plateau qui reflète le fait que la majorité de la population restait chez elle la plupart du temps.
-
 À partir du déconfinement progressif du printemps et de l'été 2020, on observe une diminution graduelle de la mobilité résidentielle. Cette baisse traduit une reprise partielle des déplacements vers l'extérieur, notamment durant la période estivale. Toutefois, il est important de noter que cette diminution ne ramène pas la mobilité résidentielle à son niveau initial. Même en dehors des périodes de confinement strict, le temps passé à domicile reste supérieur à celui observé avant la pandémie, suggérant un changement durable des comportements.
-
 À l'automne 2020, la série montre une nouvelle augmentation du temps passé à domicile, correspondant à la mise en place du second confinement. Bien que cette hausse soit généralement moins brutale que celle observée au printemps 2020, elle confirme que les restrictions sanitaires continuent d'avoir un impact direct sur les habitudes de vie. En fin de période d'étude, la mobilité résidentielle demeure globalement élevée par rapport aux niveaux pré-COVID, indiquant que les effets de la pandémie persistent au-delà des phases de confinement strict.
 
 ####Tendance à long terme et structure de la série
@@ -246,19 +229,14 @@ Toutefois, bien que ces effets hebdomadaires soient statistiquement détectables
 ####Conclusion
 
 L'analyse de la mobilité résidentielle montre que la pandémie de COVID-19 a eu un impact majeur et durable sur le temps passé à domicile. Les confinements successifs ont provoqué des augmentations abruptes et sans précédent de la mobilité résidentielle, tandis que les phases de déconfinement n'ont entraîné qu'un retour partiel vers la situation pré-pandémique. Cette variable apparaît ainsi comme un excellent indicateur synthétique de l'impact des mesures sanitaires.
-
 Le maintien d'un niveau élevé de mobilité résidentielle en fin de période suggère que certains changements, tels que le télétravail ou la réduction des déplacements non essentiels, pourraient s'inscrire dans la durée. La mobilité résidentielle constitue donc un miroir inversé des autres formes de mobilité et offre un éclairage central sur les transformations des modes de vie induites par la pandémie.
-
 Concernant les trajets vers les commerces alimentaires et les pharmacies, on observe une chute brutale au démarrage du premier confinement, et une légère augmentation vers la fin du confinement. La fréquentation reste ensuite assez stable et le second confinement a un impact assez limité. Juste après la fin du second confinement, des valeurs plus élevées qui semblent correspondre à la situation avant confinements voir même plus sont observées.Les valeurs de la série passent sous la courbe rouge pendant le premier confinement, ce qui traduit des valeurs temporairement en dessous de la tendance, c'est beaucoup moins flagrant lors du second confinement.
 
 ###Comparaison travail-alimentation/pharmacies
 
 Les analyses des déplacements au travail ou vers les commerces alimentaires et pharmaceutiques montrent une influence du confinement sur ces composantes. Lorsque le premier confinement a débuté en mars 2020, la diminution est nette. La mobilité vers ces lieux ne commencera à augmenter progressivement que lors de la phase lente de déconfinement en mai 2020. L'augmentation se maintiendra et ne faiblira presque pas lors du second confinement.
-
 Les mêmes variations sont observées pour les déplacements de la population sur leur lieu de travail ou vers les pharmacies et commerces alimentaires. Cependant, quelques différences subsistent : les variations des déplacements professionnels sont marquées par une amplitude plus importante. De plus, de légères baisses sur certaines périodes de l'année sont observables à différentes périodes d'une année(vacances d'été et fêtes de fin d'année par exemple). Il existe donc une période cyclique plus marquée pour les déplacements professionnels.
-
 Les déplacements vers les commerces alimentaires et les services pharmaceutiques se maintiennent davantage, les variations sont peu marquées après la fin du premier confinement. Même si les déplacements étaient limitées lors du second, les restrictions étaient moindre ce qui a aidé au maintien de l'activité de ces deux services. Lors de la fin de période de l'analyse (2022), les déplacements ont récupéré la même importance qu'avant le premier confinement, voire sont plus importants qu'avant.
-
 En somme, ces deux composantes ont subit des effets semblables par la pandémie mondiale de Covid-19. Les variations annuelles pour le travail semblent normales et n'impactent pas la reprise, tandis que pour l'alimentaire et le pharmaceutique, les déplacements restent réguliers à longueur d'année en post-confinement.
 
 ## Discussion et Conclusion
