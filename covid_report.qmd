@@ -44,6 +44,7 @@ SciViews::R("ts", lang="fr")
 SciViews::R("explore", lang="fr")
 ```
 
+
 ### Importation et modifications des données
 
 ```{r modif donnees}
@@ -197,7 +198,7 @@ Dans l'ensemble, Ces deux composantes ont subit des effets semblables, même si 
 
 Cette section analyse l’évolution de la mobilité résidentielle. Contrairement aux autres catégories de mobilité (travail, commerces, loisirs, parcs), cette variable ne mesure pas des déplacements vers l’extérieur, mais constitue plutôt un indicateur du temps passé à domicile. Une augmentation de la mobilité résidentielle trace soit duit donc une réduction des déplacements hors domicile. Pour cette raison, et parce qu’elle reflète directement les mesures de confinement et de télétravail, la mobilité résidentielle est analysée séparément.
 
-1.  Évolution temporelle de la mobilité résidentielle
+####Évolution temporelle de la mobilité résidentielle
 
 ```{r}
 mobility_residence_ts <- ts(mobility$residence, start = c(2020, 46), frequency = 365)
@@ -212,7 +213,7 @@ Durant cette première phase de confinement, la mobilité résidentielle atteint
 
 À l'automne 2020, la série montre une nouvelle augmentation du temps passé à domicile, correspondant à la mise en place du second confinement. Bien que cette hausse soit généralement moins brutale que celle observée au printemps 2020, elle confirme que les restrictions sanitaires continuent d'avoir un impact direct sur les habitudes de vie. En fin de période d'étude, la mobilité résidentielle demeure globalement élevée par rapport aux niveaux pré-COVID, indiquant que les effets de la pandémie persistent au-delà des phases de confinement strict.
 
-2.  Tendance à long terme et structure de la série
+####Tendance à long terme et structure de la série
 
 ```{r}
 mobility_residence_median <- tsd(mobility_residence_ts, method = "median", order = 180, times = 1)
@@ -229,7 +230,7 @@ La décomposition révèle également la présence de fluctuations régulières 
 
 Les résidus ne montrent pas de structure particulière persistante à l'échelle visuelle, ce qui indique que la tendance extraite capture l'essentiel de l'information à long terme. Cette analyse confirme ainsi que l'évolution observée dans la série brute n'est pas uniquement due à des fluctuations aléatoires, mais reflète bien un changement profond et durable des comportements résidentiels.
 
-3.  Effets hebdomadaires et persistance temporelle
+####Effets hebdomadaires et persistance temporelle
 
 ```{r}
 acf_residence <- acf(mobility_residence_ts, xlab = "Retard/Lag [jours]", ylab = "Autocorrélation", main = "ACF de la mobilité résidentielle")
@@ -241,7 +242,7 @@ En outre, l'ACF révèle une forte persistance temporelle, particulièrement dur
 
 Toutefois, bien que ces effets hebdomadaires soient statistiquement détectables, ils restent secondaires par rapport aux ruptures majeures induites par les confinements. L'évolution globale de la mobilité résidentielle est avant tout dictée par les décisions politiques et les mesures de santé publique, plutôt que par les variations cycliques habituelles.
 
-Conclusion
+####Conclusion
 
 L'analyse de la mobilité résidentielle montre que la pandémie de COVID-19 a eu un impact majeur et durable sur le temps passé à domicile. Les confinements successifs ont provoqué des augmentations abruptes et sans précédent de la mobilité résidentielle, tandis que les phases de déconfinement n'ont entraîné qu'un retour partiel vers la situation pré-pandémique. Cette variable apparaît ainsi comme un excellent indicateur synthétique de l'impact des mesures sanitaires.
 
@@ -249,7 +250,7 @@ Le maintien d'un niveau élevé de mobilité résidentielle en fin de période s
 
 Concernant les trajets vers les commerces alimentaires et les pharmacies, on observe une chute brutale au démarrage du premier confinement, et une légère augmentation vers la fin du confinement. La fréquentation reste ensuite assez stable et le second confinement a un impact assez limité. Juste après la fin du second confinement, des valeurs plus élevées qui semblent correspondre à la situation avant confinements voir même plus sont observées.Les valeurs de la série passent sous la courbe rouge pendant le premier confinement, ce qui traduit des valeurs temporairement en dessous de la tendance, c'est beaucoup moins flagrant lors du second confinement.
 
-#Comparaison travail-alimentation/pharmacies
+###Comparaison travail-alimentation/pharmacies
 
 Les analyses des déplacements au travail ou vers les commerces alimentaires et pharmaceutiques montrent une influence du confinement sur ces composantes. Lorsque le premier confinement a débuté en mars 2020, la diminution est nette. La mobilité vers ces lieux ne commencera à augmenter progressivement que lors de la phase lente de déconfinement en mai 2020. L'augmentation se maintiendra et ne faiblira presque pas lors du second confinement.
 
